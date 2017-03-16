@@ -1,0 +1,1437 @@
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,dvipdfmx,uplatex]{jsarticle}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{6\_data\_wrangling}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Introduction to Data Science with
+Julia}\label{introduction-to-data-science-with-julia}
+
+\section{目次}\label{ux76eeux6b21}
+
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{ux30c7ux30fcux30bfux5206ux6790ux5165ux9580}{データ分析入門}
+\item
+  \protect\hyperlink{ux30c7ux30fcux30bfux306eux8aadux307fux8fbcux307f}{データの読み込み}
+\item
+  \protect\hyperlink{DataFrames-ux30d1ux30c3ux30b1ux30fcux30b8}{DataFrames
+  パッケージ}
+\item
+  \protect\hyperlink{ux30c7ux30fcux30bfux52a0ux5de5}{データ加工}
+\item
+  \protect\hyperlink{ux30c7ux30fcux30bfux306eux7d50ux5408}{データの結合}
+\item
+  \protect\hyperlink{ux7df4ux7fd2ux554fux984c}{練習問題}
+\end{itemize}
+
+    \section{データ分析入門}\label{ux30c7ux30fcux30bfux5206ux6790ux5165ux9580}
+
+\subsection{データの読み込み}\label{ux30c7ux30fcux30bfux306eux8aadux307fux8fbcux307f}
+
+世にあふれるデータは Excel や CSV, SQL
+などいろいろな形式で保存されていますが、この講義では取り扱いが容易な CSV
+(Comma-Separated Values) ファイルを使用していきます。CSV
+ファイルは中身を見ればわかりますが、各要素がコンマで区切られたテキストファイルです。テキストファイルであるためメモ帳などで簡単に編集することが出来ます。
+
+まずは CSV
+ファイルからデータを読み込み、平均や分散などの基本統計量を計算してみましょう。
+今回はサンプルとして、学生のIDと2つの試験の点数が保存された scores.csv
+というファイルを用意しました。
+
+Julia の標準機能を使って csv ファイルを読み込むには readcsv
+関数を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{scores} \PY{o}{=} \PY{n}{readcsv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{../data/scores.csv}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{k+kt}{Int}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{n}{true}\PY{p}{)} \PY{c}{\PYZsh{} デフォルトでは header=false になっています。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} (
+        [1 31 61; 2 70 54; … ; 99 96 92; 100 73 93],
+        
+        AbstractString["ID" "exam1" "exam2"])
+\end{Verbatim}
+        
+    データを読み込むと変数 scores の第1要素が数値データに、第2要素が header
+が入ります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} 100×3 Array\{Int64,2\}:
+           1  31  61
+           2  70  54
+           3  61  36
+           4  77  91
+           5  46  29
+           6  40  59
+           7  80  99
+           8  67  52
+           9  80  72
+          10   1   4
+          11  23   4
+          12  79  86
+          13  16   1
+           ⋮        
+          89  95  97
+          90  15   2
+          91  72  88
+          92  45  45
+          93   1   9
+          94  50  39
+          95  79  88
+          96  20  26
+          97  97  63
+          98  15  23
+          99  96  92
+         100  73  93
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 1×3 Array\{AbstractString,2\}:
+         "ID"  "exam1"  "exam2"
+\end{Verbatim}
+        
+    summarystats を使って2つの試験の点数の平均などを調べてみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{import} \PY{n}{StatsBase}
+        \PY{n}{StatsBase}\PY{o}{.}\PY{n}{summarystats}\PY{p}{(}\PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} Summary Stats:
+        Mean:         47.640000
+        Minimum:      1.000000
+        1st Quartile: 19.000000
+        Median:       51.500000
+        3rd Quartile: 71.000000
+        Maximum:      97.000000
+        
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{StatsBase}\PY{o}{.}\PY{n}{summarystats}\PY{p}{(}\PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Summary Stats:
+        Mean:         49.970000
+        Minimum:      0.000000
+        1st Quartile: 27.000000
+        Median:       49.000000
+        3rd Quartile: 76.000000
+        Maximum:      99.000000
+        
+\end{Verbatim}
+        
+    exam 1 と exam 2 の相関係数も計算してみましょう
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{corcoeff} \PY{o}{=} \PY{n}{cor}\PY{p}{(}\PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 0.8268224737640034
+\end{Verbatim}
+        
+    数字だけを見ていてもよくわからないので可視化もしてみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{import} \PY{n}{Plots}
+        \PY{n}{Plots}\PY{o}{.}\PY{n}{gr}\PY{p}{(}\PY{n}{leg}\PY{o}{=}\PY{n}{false}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Plots.GRBackend()
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{p}{@}\PY{n}{show} \PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{linreg}\PY{p}{(}\PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{c}{\PYZsh{} y = a  + b * x にフィッティング}
+        \PY{n}{Plots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} 
+            \PY{n}{linetype}\PY{o}{=}\PY{p}{:}\PY{n}{scatter}\PY{p}{,} 
+            \PY{n}{leg}\PY{o}{=}\PY{n}{false}\PY{p}{,}
+            \PY{n}{title}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Scores}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+            \PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{exam 1}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+            \PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{exam 2}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+            \PY{n}{xticks}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,}
+            \PY{n}{yticks}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,}
+            \PY{n}{xlims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}
+            \PY{n}{ylims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}
+            \PY{n}{aspect\PYZus{}ratio}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{p}{)}
+        \PY{n}{Plots}\PY{o}{.}\PY{n}{plot!}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}\PY{p}{,} \PY{n}{a} \PY{o}{+} \PY{n}{b} \PY{o}{*} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(a,b) = linreg((scores[1])[:,2],(scores[1])[:,3]) = (8.874846128532958,0.8626186790820117)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{DataFrames
+パッケージ}\label{dataframes-ux30d1ux30c3ux30b1ux30fcux30b8}
+
+先程は readcsv を使ってデータを読み込みましたが、header
+があるにも関わらず全く活用しませんでした。readcsv
+で取り込んだ場合、exam1 は 2 列目で、exam2 は 3 列目だから\ldots{} と
+header
+と対応する列番号が必要でした。これではデータ数が増えるとほしいデータ列が何列目なのか数えるだけでも大変です。header
+があるのだからこれを活用したいものです。
+
+DataFrames パッケージを使うと、各列を header
+で指定することが出来ます。DataFrames パッケージをつかって CSV
+ファイルを読み込む場合は readtable を使用します。
+
+(注) \href{https://github.com/JuliaStats/DataFrames.jl}{DataFrames.jl}
+からの派生で
+\href{https://github.com/JuliaData/DataTables.jl}{DataTables.jl}
+というものもあり、今後 DataTables.jl が主流になっていくと思います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{import} \PY{n}{DataFrames}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df} \PY{o}{=} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{readtable}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{../data/scores.csv}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)} \PY{c}{\PYZsh{} head(df, n)  最初の n 行目までを表示。tail を使うと末尾を表示}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 5×3 DataFrames.DataFrame
+         │ Row │ ID │ exam1 │ exam2 │
+         ├─────┼────┼───────┼───────┤
+         │ 1   │ 1  │ 31    │ 61    │
+         │ 2   │ 2  │ 70    │ 54    │
+         │ 3   │ 3  │ 61    │ 36    │
+         │ 4   │ 4  │ 77    │ 91    │
+         │ 5   │ 5  │ 46    │ 29    │
+\end{Verbatim}
+        
+    読み込んだデータは一見すると配列に似ていますが、実際は DataFrames
+パッケージ内で定義された DataFrame
+型という型で配列と似て非なるものです。概ね配列と同様に扱えますが、扱い方が変わる部分もあるのでそのことを念頭においてください。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} DataFrames.DataFrame
+\end{Verbatim}
+        
+    各列を抜き出すには普通の配列のように
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{df[:,}\FloatTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+とするか、抜き出す列の列番号または header で指定して
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{df[}\FloatTok{2}\NormalTok{]}
+    
+    \NormalTok{or}
+    
+    \NormalTok{df[:exam1]}
+\end{Highlighting}
+\end{Shaded}
+
+などとします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 100-element DataArrays.DataArray\{Int64,1\}:
+          31
+          70
+          61
+          77
+          46
+          40
+          80
+          67
+          80
+           1
+          23
+          79
+          16
+           ⋮
+          95
+          15
+          72
+          45
+           1
+          50
+          79
+          20
+          97
+          15
+          96
+          73
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 100-element DataArrays.DataArray\{Int64,1\}:
+          31
+          70
+          61
+          77
+          46
+          40
+          80
+          67
+          80
+           1
+          23
+          79
+          16
+           ⋮
+          95
+          15
+          72
+          45
+           1
+          50
+          79
+          20
+          97
+          15
+          96
+          73
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df}\PY{p}{[}\PY{p}{:}\PY{n}{exam1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 100-element DataArrays.DataArray\{Int64,1\}:
+          31
+          70
+          61
+          77
+          46
+          40
+          80
+          67
+          80
+           1
+          23
+          79
+          16
+           ⋮
+          95
+          15
+          72
+          45
+           1
+          50
+          79
+          20
+          97
+          15
+          96
+          73
+\end{Verbatim}
+        
+    複数の列を抜き出す場合は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{df[ [:exam1, :exam2] ] }\CommentTok{# 内側のカッコは必須}
+\end{Highlighting}
+\end{Shaded}
+
+のようにします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df}\PY{p}{[} \PY{p}{[}\PY{p}{:}\PY{n}{exam1}\PY{p}{,} \PY{p}{:}\PY{n}{exam2}\PY{p}{]} \PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 100×2 DataFrames.DataFrame
+         │ Row │ exam1 │ exam2 │
+         ├─────┼───────┼───────┤
+         │ 1   │ 31    │ 61    │
+         │ 2   │ 70    │ 54    │
+         │ 3   │ 61    │ 36    │
+         │ 4   │ 77    │ 91    │
+         │ 5   │ 46    │ 29    │
+         │ 6   │ 40    │ 59    │
+         │ 7   │ 80    │ 99    │
+         │ 8   │ 67    │ 52    │
+         │ 9   │ 80    │ 72    │
+         │ 10  │ 1     │ 4     │
+         │ 11  │ 23    │ 4     │
+         ⋮
+         │ 89  │ 95    │ 97    │
+         │ 90  │ 15    │ 2     │
+         │ 91  │ 72    │ 88    │
+         │ 92  │ 45    │ 45    │
+         │ 93  │ 1     │ 9     │
+         │ 94  │ 50    │ 39    │
+         │ 95  │ 79    │ 88    │
+         │ 96  │ 20    │ 26    │
+         │ 97  │ 97    │ 63    │
+         │ 98  │ 15    │ 23    │
+         │ 99  │ 96    │ 92    │
+         │ 100 │ 73    │ 93    │
+\end{Verbatim}
+        
+    describe
+を使うと各列の平均、五数要約、欠損値の数と割合が標準出力されます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ID
+Min      1.0
+1st Qu.  25.75
+Median   50.5
+Mean     50.5
+3rd Qu.  75.25
+Max      100.0
+NAs      0
+NA\%      0.0\%
+
+exam1
+Min      1.0
+1st Qu.  19.0
+Median   51.5
+Mean     47.64
+3rd Qu.  71.0
+Max      97.0
+NAs      0
+NA\%      0.0\%
+
+exam2
+Min      0.0
+1st Qu.  27.0
+Median   49.0
+Mean     49.97
+3rd Qu.  76.0
+Max      99.0
+NAs      0
+NA\%      0.0\%
+
+
+    \end{Verbatim}
+
+    既存の配列から DataFrame を作るには次のようにします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}
+         \PY{n}{tmpdf} \PY{o}{=} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{X} \PY{o}{=} \PY{n}{x}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{y}\PY{p}{)} \PY{c}{\PYZsh{}  a = b としたとき、左の a が列名になる。}
+                                                    \PY{c}{\PYZsh{} 列名と配列の変数名は同じでも構わない。すなわち、a = a と書いてもOK}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 3×2 DataFrames.DataFrame
+         │ Row │ X │ Y │
+         ├─────┼───┼───┤
+         │ 1   │ 1 │ 4 │
+         │ 2   │ 2 │ 5 │
+         │ 3   │ 3 │ 6 │
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{tmpdf}\PY{p}{[}\PY{p}{:}\PY{n}{X}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 3-element DataArrays.DataArray\{Int64,1\}:
+          1
+          2
+          3
+\end{Verbatim}
+        
+    可視化も配列の時同様にすることができます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{:}\PY{n}{exam1}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{p}{:}\PY{n}{exam2}\PY{p}{]}\PY{p}{,}
+             \PY{n}{linetype}\PY{o}{=}\PY{p}{:}\PY{n}{scatter}\PY{p}{,} 
+             \PY{n}{leg}\PY{o}{=}\PY{n}{false}\PY{p}{,}
+             \PY{n}{title}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Scores}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+             \PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{exam 1}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+             \PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{exam 2}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+             \PY{n}{xticks}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,}
+             \PY{n}{yticks}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,}
+             \PY{n}{xlims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}
+             \PY{n}{ylims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}
+             \PY{n}{aspect\PYZus{}ratio}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    Plots にさらに箱ひげ図などの描写機能を加え、DataFrame 型にも対応している
+StatPlots パッケージを使うとより分析がはかどります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{import} \PY{n}{StatPlots} \PY{c}{\PYZsh{} 文法は Plots と概ね一緒}
+         \PY{n}{StatPlots}\PY{o}{.}\PY{n}{gr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} Plots.GRBackend()
+\end{Verbatim}
+        
+    普通の Plots では出来きませんが、StatPlots は DataFrame
+型に対応しているので次のようにも書けます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{StatPlots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{p}{:}\PY{n}{exam1}\PY{p}{,} \PY{p}{:}\PY{n}{exam2}\PY{p}{,} \PY{n}{linetype}\PY{o}{=}\PY{p}{:}\PY{n}{scatter}\PY{p}{)} \PY{c}{\PYZsh{} plot(df[:exam1], df[:exam2]) の代わりに左のように書ける}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{StatPlots}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{p}{:}\PY{n}{exam1}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{exam 1}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{StatPlots}\PY{o}{.}\PY{n}{histogram!}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{p}{:}\PY{n}{exam2}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{exam 2}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{leg}\PY{o}{=}\PY{n}{true}\PY{p}{)} \PY{c}{\PYZsh{} alpha は透過度}
+         \PY{n}{StatPlots}\PY{o}{.}\PY{n}{xlabel!}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{score}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{StatPlots}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{exam 1}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{exam 2}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{p}{:}\PY{n}{exam1}\PY{p}{,} \PY{p}{:}\PY{n}{exam2}\PY{p}{)}
+         \PY{n}{StatPlots}\PY{o}{.}\PY{n}{ylabel!}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{score}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{データ加工}\label{ux30c7ux30fcux30bfux52a0ux5de5}
+
+現在では\href{http://www.stat.go.jp/data/guide/download/}{統計局}や
+\href{https://www.kaggle.com/datasets}{Kaggle}
+などから様々なデータをダウンロード出来ますが、それらのデータが始めから解析しやすい形式になっているとは限りません。そのため、まずは解析がしやすくするためにデータを加工する必要が有ります。
+
+まずは ID、性別、誕生日だけが入った単純なデータ people.csv
+を使ってデータ加工に慣れていきましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{people} \PY{o}{=} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{readtable}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{../data/people.csv}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 6×3 DataFrames.DataFrame
+         │ Row │ ID │ Sex      │ Birthday     │
+         ├─────┼────┼──────────┼──────────────┤
+         │ 1   │ 1  │ "female" │ "1984-08-30" │
+         │ 2   │ 2  │ "F"      │ "1978-12-15" │
+         │ 3   │ 3  │ "Male"   │ "1982-10-09" │
+         │ 4   │ 4  │ "Male"   │ "1980-08-15" │
+         │ 5   │ 5  │ "F"      │ "1980-01-12" │
+         │ 6   │ 6  │ "male"   │ "1974-03-04" │
+\end{Verbatim}
+        
+    各列の要素の型を調べてみます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{eltypes}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 3-element Array\{Type,1\}:
+          Int64 
+          String
+          String
+\end{Verbatim}
+        
+    ID 列は Int64 で、性別と誕生日の列は String 型のようです。Julia
+には日付を扱うための Date 型があるので、より Julia
+で扱いやすいように誕生日は String 型から Date 型
+へ変換したくなります。性別の方も書き方が何通りかあるようなので表し方を揃えたいところです。
+
+初めに変換が簡単そうな誕生日の方からやっていきましょう。今回のように「年-月-日」という日付の表し方だと
+Date を使うだけで簡単に Date 型になります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{Date}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Birthday}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} 1984-08-30
+\end{Verbatim}
+        
+    ヨーロッパ式に 日・月・年 の順に書かれていた場合は次のように書きます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{Date}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{12\PYZhy{}31\PYZhy{}2020}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{m\PYZhy{}d\PYZhy{}y}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} 2020-12-31
+\end{Verbatim}
+        
+    一見すると変換されていないようですが、型を調べるとちゃんと型変換がされています。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{p}{@}\PY{n}{show} \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Birthday}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{p}{@}\PY{n}{show} \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{Date}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Birthday}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+typeof((people[:Birthday])[1]) = String
+typeof(Date((people[:Birthday])[1])) = Date
+
+    \end{Verbatim}
+
+    Date
+型にすれば、2つの日付の引き算をすると経過日数を計算することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{yourbirthday} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{2000\PYZhy{}1\PYZhy{}1}\PY{l+s}{\PYZdq{}}
+         \PY{n}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{今日はあなたが生まれてから }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{Dates}\PY{o}{.}\PY{n}{today}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{Date}\PY{p}{(}\PY{n}{yourbirthday}\PY{p}{)}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ です。}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+今日はあなたが生まれてから 6284 days です。
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    これから、誕生日の列を String 型から Date
+型に変換していきますが、もともとの誕生日の列は String 型なので、変換した
+Date 型を直接代入することは出来ません。そのため、ここでは 1. birthday
+という列を新しく作る 1. birthday 列に変換後の誕生日を入れる 1. 元の
+Birthday 列を削除 1. birthday を Birthday に名前を変更
+
+という手順を踏んでいくことにします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c}{\PYZsh{} 新しい列を作成}
+         \PY{c}{\PYZsh{} 初期化していないので各要素の日付に意味はありません。}
+         \PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{birthday}\PY{p}{]} \PY{o}{=} \PY{n}{Array}\PY{p}{\PYZob{}}\PY{n}{Date}\PY{p}{\PYZcb{}}\PY{p}{(}\PY{n}{size}\PY{p}{(}\PY{n}{people}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 1000-element Array\{Date,1\}:
+          0000-12-31      
+          47036885-03-21  
+          0001-01-03      
+          47036885-03-20  
+          264799-11-21    
+          271940-08-12    
+          271940-08-12    
+          271940-08-28    
+          0116-06-06      
+          0012-04-04      
+          233885-07-10    
+          23518443-02-10  
+          261588-07-09    
+          ⋮               
+          276653-09-17    
+          271962-03-02    
+          271962-03-10    
+          271962-04-03    
+          276642-07-01    
+          267232-09-06    
+          1375874798-11-01
+          271962-01-13    
+          271962-04-27    
+          271962-04-27    
+          271962-04-27    
+          271962-01-13    
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c}{\PYZsh{} 型を変換し代入する}
+         \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{n}{size}\PY{p}{(}\PY{n}{people}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{birthday}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Date}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Birthday}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         \PY{k}{end}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 6×4 DataFrames.DataFrame
+         │ Row │ ID │ Sex      │ Birthday     │ birthday   │
+         ├─────┼────┼──────────┼──────────────┼────────────┤
+         │ 1   │ 1  │ "female" │ "1984-08-30" │ 1984-08-30 │
+         │ 2   │ 2  │ "F"      │ "1978-12-15" │ 1978-12-15 │
+         │ 3   │ 3  │ "Male"   │ "1982-10-09" │ 1982-10-09 │
+         │ 4   │ 4  │ "Male"   │ "1980-08-15" │ 1980-08-15 │
+         │ 5   │ 5  │ "F"      │ "1980-01-12" │ 1980-01-12 │
+         │ 6   │ 6  │ "male"   │ "1974-03-04" │ 1974-03-04 │
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c}{\PYZsh{} Birthday 列を削除}
+         \PY{n}{delete!}\PY{p}{(}\PY{n}{people}\PY{p}{,} \PY{p}{:}\PY{n}{Birthday}\PY{p}{)}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 6×3 DataFrames.DataFrame
+         │ Row │ ID │ Sex      │ birthday   │
+         ├─────┼────┼──────────┼────────────┤
+         │ 1   │ 1  │ "female" │ 1984-08-30 │
+         │ 2   │ 2  │ "F"      │ 1978-12-15 │
+         │ 3   │ 3  │ "Male"   │ 1982-10-09 │
+         │ 4   │ 4  │ "Male"   │ 1980-08-15 │
+         │ 5   │ 5  │ "F"      │ 1980-01-12 │
+         │ 6   │ 6  │ "male"   │ 1974-03-04 │
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c}{\PYZsh{} 列名を変更}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{rename!}\PY{p}{(}\PY{n}{people}\PY{p}{,} \PY{p}{:}\PY{n}{birthday}\PY{p}{,} \PY{p}{:}\PY{n}{Birthday}\PY{p}{)}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 6×3 DataFrames.DataFrame
+         │ Row │ ID │ Sex      │ Birthday   │
+         ├─────┼────┼──────────┼────────────┤
+         │ 1   │ 1  │ "female" │ 1984-08-30 │
+         │ 2   │ 2  │ "F"      │ 1978-12-15 │
+         │ 3   │ 3  │ "Male"   │ 1982-10-09 │
+         │ 4   │ 4  │ "Male"   │ 1980-08-15 │
+         │ 5   │ 5  │ "F"      │ 1980-01-12 │
+         │ 6   │ 6  │ "male"   │ 1974-03-04 │
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c}{\PYZsh{} 無事に変換できたか確認}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{eltypes}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} 3-element Array\{Type,1\}:
+          Int64 
+          String
+          Date  
+\end{Verbatim}
+        
+    注)
+今回の様に、変換する列に欠損値が存在しない場合、新しく列を作らずとも一気に型変換できます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c}{\PYZsh{} people = readtable(\PYZdq{}people.csv\PYZdq{})}
+         \PY{c}{\PYZsh{} people[:Birthday] = Date(people[:Birthday])}
+         \PY{c}{\PYZsh{} @show head(people)}
+         \PY{c}{\PYZsh{} eltypes(people)}
+\end{Verbatim}
+
+    次に性別の方を加工していきましょう。性別の列を見るとどうやら男女の書き方が何通りかあるようです。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Sex}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} 1000-element DataArrays.DataArray\{String,1\}:
+          "female"
+          "F"     
+          "Male"  
+          "Male"  
+          "F"     
+          "male"  
+          "female"
+          "M"     
+          "F"     
+          "F"     
+          "Female"
+          "Male"  
+          "female"
+          ⋮       
+          "female"
+          "female"
+          "male"  
+          "F"     
+          "Female"
+          "male"  
+          "female"
+          "female"
+          "Female"
+          "male"  
+          "Male"  
+          "male"  
+\end{Verbatim}
+        
+    このままでは、何通りの書き方があるのかはっきりしないので、Set
+を使ってこの列から重複する要素を取り除きましょう。 Set
+型は数学の集合の同様、要素の順序に意味はありません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{Set}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Sex}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} Set(String["F","female","male","Female","Male","M"])
+\end{Verbatim}
+        
+    これから、男性は M, Male, male の3通りの書き方が、女性は F, Female,
+female の3通りの書き方があることがわかります。
+3通りもあると扱いが大変なので、ここでは男性は M、女性は F
+で統一していきましょう。
+
+この性別の列の加工は皆さんが実際にコードを書いてみてください。
+
+ヒント
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x }\KeywordTok{in} \NormalTok{配列 (または集合)}
+        \NormalTok{or}
+    \NormalTok{x ∈ 配列 (または集合)}
+\end{Highlighting}
+\end{Shaded}
+
+とすると x が配列の中に含まれるかどうかを確認することが出来る。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{p}{@}\PY{n}{show} \PY{l+m+mi}{1} \PY{k}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{p}{@}\PY{n}{show} \PY{l+m+mi}{5} \PY{n}{∈} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 in [1,2,3] = true
+5 ∈ [1,2,3] = false
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c}{\PYZsh{} 実際にコードを書いてみてください}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    加工ができたら最後に加工したデータを保存しましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c}{\PYZsh{} 元のデータと同じ名前にすると上書きされてしまうので、必ず違うファイル名をつける。}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{writetable}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{people\PYZus{}fix.csv}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+    上記の方法で保存したファイルをもう一度読み込むと誕生日の列はまた String
+型で読み込まれます。そのため扱いやすくするにはまた Date
+型へまた変換する必要が有ります。
+
+せっかく扱いやすい型に加工したのだから、その型のまま保存・読み込みがしたいものです。そのようなときには\href{https://github.com/JuliaIO/JLD.jl}{JLD.jl}
+パッケージを使うと型の情報を保持したまま比較的楽に変数を保存することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{import} \PY{n}{JLD}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c}{\PYZsh{} 変数を保存}
+         \PY{n}{JLD}\PY{o}{.}\PY{p}{@}\PY{n}{save} \PY{l+s}{\PYZdq{}}\PY{l+s}{people\PYZus{}fix.jld}\PY{l+s}{\PYZdq{}} \PY{n}{people}
+         
+         \PY{c}{\PYZsh{} 読み込むときは}
+         \PY{c}{\PYZsh{} JLD.@load \PYZdq{}people\PYZus{}fix.jld\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{データの結合}\label{ux30c7ux30fcux30bfux306eux7d50ux5408}
+
+まずは変数の保存が正しく行われたか確認するために一度カーネルを restart
+して、下記のコマンドを実行して変数を読み込んでみましょう。
+
+カーネルの restart の方法は上の Kernel のタブをクリックし、Restart
+をクリックしてください。これを行うと Julia
+を再起動したのと同じになります。そのため、今まで計算してきた変数などの情報は失われます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k}{import} \PY{n}{JLD}\PY{p}{,} \PY{n}{DataFrames}
+         \PY{n}{JLD}\PY{o}{.}\PY{p}{@}\PY{n+nb}{load} \PY{l+s}{\PYZdq{}}\PY{l+s}{people\PYZus{}fix.jld}\PY{l+s}{\PYZdq{}}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} 6×3 DataFrames.DataFrame
+         │ Row │ ID │ Sex      │ Birthday   │
+         ├─────┼────┼──────────┼────────────┤
+         │ 1   │ 1  │ "female" │ 1984-08-30 │
+         │ 2   │ 2  │ "F"      │ 1978-12-15 │
+         │ 3   │ 3  │ "Male"   │ 1982-10-09 │
+         │ 4   │ 4  │ "Male"   │ 1980-08-15 │
+         │ 5   │ 5  │ "F"      │ 1980-01-12 │
+         │ 6   │ 6  │ "male"   │ 1974-03-04 │
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{eltypes}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 3-element Array\{Type,1\}:
+          Int64 
+          String
+          Date  
+\end{Verbatim}
+        
+    さらに、今回は people\_satisfaction.csv という CSV
+ファイルも読み込みます。この people\_satisfaction.csv 中には
+ID、あるサービスに対する満足度
+の2つのデータが入っています。ここで、people.csv と
+people\_satisfaction.csv の ID が同じ人は同一人物だとします。
+
+満足度は数値で入っており 1. 非常に不満 1. 不満 1. 普通 1. 満足 1.
+非常に満足
+
+を表します。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{people\PYZus{}satisfaction} \PY{o}{=} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{readtable}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{../data/people\PYZus{}satisfaction.csv}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people\PYZus{}satisfaction}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} 6×2 DataFrames.DataFrame
+         │ Row │ ID   │ Satisfaction │
+         ├─────┼──────┼──────────────┤
+         │ 1   │ 1000 │ 4            │
+         │ 2   │ 999  │ 3            │
+         │ 3   │ 998  │ 2            │
+         │ 4   │ 997  │ 3            │
+         │ 5   │ 996  │ 2            │
+         │ 6   │ 995  │ 2            │
+\end{Verbatim}
+        
+    次に people と people\_satisfaction
+のデータを結合していきます。今回は共通項目として ID
+があるのでこれを基準にして結合します。 2つのデータを結合する場合には
+join 関数を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{people} \PY{o}{=} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{people}\PY{p}{,} \PY{n}{people\PYZus{}satisfaction}\PY{p}{,} \PY{n}{on} \PY{o}{=} \PY{p}{:}\PY{n}{ID}\PY{p}{,} \PY{n}{kind} \PY{o}{=} \PY{p}{:}\PY{n}{outer}\PY{p}{)}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 6×4 DataFrames.DataFrame
+         │ Row │ ID │ Sex      │ Birthday   │ Satisfaction │
+         ├─────┼────┼──────────┼────────────┼──────────────┤
+         │ 1   │ 1  │ "female" │ 1984-08-30 │ 3            │
+         │ 2   │ 2  │ "F"      │ 1978-12-15 │ NA           │
+         │ 3   │ 3  │ "Male"   │ 1982-10-09 │ 3            │
+         │ 4   │ 4  │ "Male"   │ 1980-08-15 │ 2            │
+         │ 5   │ 5  │ "F"      │ 1980-01-12 │ 2            │
+         │ 6   │ 6  │ "male"   │ 1974-03-04 │ 4            │
+\end{Verbatim}
+        
+    kind
+を変えると結合方法が変わります。詳しくは\href{http://juliastats.github.io/DataFrames.jl/stable/man/joins/}{公式ドキュメント}を読んでください。
+
+今回の様に ID が 2 つのファイルで完全に同じ場合、
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{people[:Satisfaction] = sort(people_satisfaction)[:Satisfaction]}
+\end{Highlighting}
+\end{Shaded}
+
+として代入することも出来ますが、常に一致する ID があるとは限らないので
+join 関数を使ったほうが無難です。
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{欠損値}\label{ux6b20ux640dux5024}
+
+結合結果を見ると ID 2 の人の Satisfaction が NA
+となっていることがわかります。ここで NA
+とは欠損値を表します。アンケートで無回答だった場合や、実験でサンプルが取れなかった場合は欠損値になります。
+
+欠損値がある場合、単純に平均などを求めることが出来ません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{mean}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} NA
+\end{Verbatim}
+        
+    データから欠損値を取り除くには dropna を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} 898-element Array\{Int64,1\}:
+          3
+          3
+          2
+          2
+          4
+          3
+          3
+          3
+          4
+          1
+          1
+          2
+          1
+          ⋮
+          5
+          2
+          4
+          2
+          2
+          2
+          2
+          2
+          3
+          2
+          3
+          4
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{mean}\PY{p}{(}\PY{n}{DataFrames}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} 2.8106904231625833
+\end{Verbatim}
+        
+    欠損値があるデータを describe
+を使ってみると、欠損値を取り除いたデータでの平均などが表示されます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ID
+Min      1.0
+1st Qu.  250.75
+Median   500.5
+Mean     500.5
+3rd Qu.  750.25
+Max      1000.0
+NAs      0
+NA\%      0.0\%
+
+Sex
+Length  1000
+Type    String
+NAs     0
+NA\%     0.0\%
+Unique  6
+
+Birthday
+Length  1000
+Type    Date
+NAs     0
+NA\%     0.0\%
+Unique  949
+
+Satisfaction
+Min      1.0
+1st Qu.  2.0
+Median   3.0
+Mean     2.8106904231625833
+3rd Qu.  4.0
+Max      5.0
+NAs      102
+NA\%      10.2\%
+
+
+    \end{Verbatim}
+
+    describe の出力結果より Satisfaction には欠損値が 102
+個あることがわかります。
+この欠損値をどう扱うかというのは難しい問題ですが、ここでは欠損値を平均値に置き換えてみます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction\PYZus{}fix}\PY{p}{]} \PY{o}{=} \PY{n}{Vector}\PY{p}{\PYZob{}}\PY{k+kt}{Float64}\PY{p}{\PYZcb{}}\PY{p}{(}\PY{n}{size}\PY{p}{(}\PY{n}{people}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{iter} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{n}{size}\PY{p}{(}\PY{n}{people}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{if} \PY{n}{DataFrames}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction}\PY{p}{]}\PY{p}{[}\PY{n}{iter}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction\PYZus{}fix}\PY{p}{]}\PY{p}{[}\PY{n}{iter}\PY{p}{]} \PY{o}{=} \PY{n}{mean}\PY{p}{(}\PY{n}{DataFrames}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{else}
+                 \PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction\PYZus{}fix}\PY{p}{]}\PY{p}{[}\PY{n}{iter}\PY{p}{]} \PY{o}{=} \PY{n}{people}\PY{p}{[}\PY{p}{:}\PY{n}{Satisfaction}\PY{p}{]}\PY{p}{[}\PY{n}{iter}\PY{p}{]}
+             \PY{k}{end}
+         \PY{k}{end}
+         \PY{n}{DataFrames}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{people}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} 6×5 DataFrames.DataFrame
+         │ Row │ ID │ Sex      │ Birthday   │ Satisfaction │ Satisfaction\_fix │
+         ├─────┼────┼──────────┼────────────┼──────────────┼──────────────────┤
+         │ 1   │ 1  │ "female" │ 1984-08-30 │ 3            │ 3.0              │
+         │ 2   │ 2  │ "F"      │ 1978-12-15 │ NA           │ 2.81069          │
+         │ 3   │ 3  │ "Male"   │ 1982-10-09 │ 3            │ 3.0              │
+         │ 4   │ 4  │ "Male"   │ 1980-08-15 │ 2            │ 2.0              │
+         │ 5   │ 5  │ "F"      │ 1980-01-12 │ 2            │ 2.0              │
+         │ 6   │ 6  │ "male"   │ 1974-03-04 │ 4            │ 4.0              │
+\end{Verbatim}
+        
+    要素が NA か否かを調べるときには isna 関数を使います。isna 関数は引数が
+NA ならば true を、そうでなければ false を返します。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    上の例では for 文を使って欠損値を平均値に置き換えましたが、convert
+を使うと欠損値をコード一行書きで置き換えることが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c}{\PYZsh{} meansatisfaction = mean(DataFrames.dropna(people[:Satisfaction]))}
+         \PY{c}{\PYZsh{} people[:Satisfaction\PYZus{}fix] = convert(Vector\PYZob{}Float64\PYZcb{}, people[:Satisfaction], meansatisfaction)}
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{練習問題}\label{ux7df4ux7fd2ux554fux984c}
+
+    \subsection{1.}\label{section}
+
+people から年齢のヒストグラムを作成せよ。ただし、年齢は数え年とする。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{2.}\label{section}
+
+2つのデータセット names, jobs を ID を基準に結合せよ。 また、kind
+オプションを変えるとどのような結果が得られるのか確認せよ。 ※
+オプションは\href{http://juliastats.github.io/DataFrames.jl/stable/man/joins/\#Database-Style-Joins-1}{公式ドキュメント}参照
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{using DataFrames}
+\NormalTok{names = DataFrame(ID = [}\FloatTok{1}\NormalTok{, }\FloatTok{2}\NormalTok{], Name = [}\StringTok{"John Doe"}\NormalTok{, }\StringTok{"Jane Doe"}\NormalTok{])}
+\NormalTok{jobs = DataFrame(ID = [}\FloatTok{1}\NormalTok{, }\FloatTok{3}\NormalTok{], Job = [}\StringTok{"Lawyer"}\NormalTok{, }\StringTok{"Doctor"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{3.}\label{section}
+
+下記のデータの欠損値を全て中央値に置き換えよ
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{srand(}\FloatTok{1}\NormalTok{)}
+\NormalTok{ex = DataFrame()}
+\NormalTok{ex[:sample] = @data([rand(@data([NA, }\FloatTok{1}\NormalTok{, }\FloatTok{2}\NormalTok{, }\FloatTok{3}\NormalTok{, }\FloatTok{4}\NormalTok{, }\FloatTok{5}\NormalTok{])) }\KeywordTok{for} \NormalTok{i }\KeywordTok{in} \FloatTok{1}\NormalTok{:}\FloatTok{100}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

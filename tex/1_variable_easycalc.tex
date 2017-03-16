@@ -1,0 +1,1184 @@
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,dvipdfmx,uplatex]{jsarticle}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{1\_variable\_easycalc}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Introduction to Data Science with
+Julia}\label{introduction-to-data-science-with-julia}
+
+\subsection{目次}\label{ux76eeux6b21}
+
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{Hello-Worldux21}{Hello-World!}
+\item
+  \protect\hyperlink{ux30b3ux30e1ux30f3ux30c8}{コメント}
+\item
+  \protect\hyperlink{Help}{Help}
+\item
+  \protect\hyperlink{ux7c21ux5358ux306aux6570ux5024ux8a08ux7b97}{簡単な数値計算}
+\item
+  \protect\hyperlink{ux5909ux6570}{変数}
+\item
+  \protect\hyperlink{ux6bd4ux8f03ux6f14ux7b97ux5b50}{比較演算子}
+\item
+  \protect\hyperlink{ux8ad6ux7406ux6f14ux7b97}{論理演算}
+\item
+  \protect\hyperlink{ux6587ux5b57ux5217}{文字列}
+\item
+  \protect\hyperlink{ux7df4ux7fd2ux554fux984c}{練習問題}
+\end{itemize}
+
+    \section{Hello World!}\label{hello-world}
+
+まずはプログラミング言語を学ぶ時の定番の Hello World!
+出力するコードを書いてみましょう。
+
+Juliaで文字を表示するには print または println 関数を使います。 print と
+println の違いは最後に改行コードが入るか否かの違いです。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{print(}\StringTok{"hoge}\NormalTok{\textbackslash{}n}\StringTok{"}\NormalTok{), println(}\StringTok{"hoge"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+は同じ意味です。
+
+実際に、次の空欄に
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{print(}\StringTok{"Hello World!"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+と入力し、Shift-Enter または Ctrl-Enter で実行してみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{コメント}\label{ux30b3ux30e1ux30f3ux30c8}
+
+プログラミングが上手くなるためにはひたすらコードを書いて慣れるしかありません。しかし、コードを書き連ねていると後で見なおした時に一体何の計算をしていたのかわからなくなってしまいことが多々起きます。
+未来の自分が見ても理解できるように、プログラミングをするときにはどんな計算をしているのかというコメントを入れることを意識しましょう。
+
+Julia ではコメントにしたい部分は \# のあとに書きます。\#
+の後に書いたものは例えコンピュータが実行できる文法だったとしても評価されません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c}{\PYZsh{} Hello worldを出力するプログラム。}
+        \PY{n}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Hello World!}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{c}{\PYZsh{} print(\PYZdq{}Kyushu University\PYZdq{})}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hello World!
+    \end{Verbatim}
+
+    複数行に渡る長いコメントを書く場合は \#= =\# で囲みます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+cm}{\PYZsh{}=}
+        \PY{c+cm}{こ}\PY{c+cm}{こ}\PY{c+cm}{に}\PY{c+cm}{書}\PY{c+cm}{い}\PY{c+cm}{た}\PY{c+cm}{こ}\PY{c+cm}{と}\PY{c+cm}{は}\PY{c+cm}{評}\PY{c+cm}{価}\PY{c+cm}{さ}\PY{c+cm}{れ}\PY{c+cm}{ま}\PY{c+cm}{せ}\PY{c+cm}{ん}\PY{c+cm}{。}
+        \PY{c+cm}{プ}\PY{c+cm}{ロ}\PY{c+cm}{グ}\PY{c+cm}{ラ}\PY{c+cm}{ム}\PY{c+cm}{を}\PY{c+cm}{書}\PY{c+cm}{き}\PY{c+cm}{直}\PY{c+cm}{す}\PY{c+cm}{と}\PY{c+cm}{き}\PY{c+cm}{に}\PY{c+cm}{コ}\PY{c+cm}{ー}\PY{c+cm}{ド}\PY{c+cm}{の}\PY{c+cm}{不}\PY{c+cm}{必}\PY{c+cm}{要}\PY{c+cm}{な}\PY{c+cm}{部}\PY{c+cm}{分}\PY{c+cm}{を}\PY{c+cm}{消}\PY{c+cm}{し}\PY{c+cm}{て}\PY{c+cm}{し}\PY{c+cm}{ま}\PY{c+cm}{う}\PY{c+cm}{人}\PY{c+cm}{が}\PY{c+cm}{い}\PY{c+cm}{ま}\PY{c+cm}{す}\PY{c+cm}{が}\PY{c+cm}{、}\PY{c+cm}{後}\PY{c+cm}{々}\PY{c+cm}{に}\PY{c+cm}{な}\PY{c+cm}{っ}\PY{c+cm}{て}\PY{c+cm}{消}\PY{c+cm}{さ}\PY{c+cm}{な}\PY{c+cm}{け}\PY{c+cm}{れ}\PY{c+cm}{ば}\PY{c+cm}{よ}\PY{c+cm}{か}\PY{c+cm}{っ}\PY{c+cm}{た}\PY{c+cm}{と}\PY{c+cm}{思}\PY{c+cm}{う}\PY{c+cm}{こ}\PY{c+cm}{と}\PY{c+cm}{は}\PY{c+cm}{よ}\PY{c+cm}{く}\PY{c+cm}{あ}\PY{c+cm}{る}\PY{c+cm}{こ}\PY{c+cm}{と}\PY{c+cm}{で}\PY{c+cm}{す}\PY{c+cm}{。}
+        \PY{c+cm}{そ}\PY{c+cm}{の}\PY{c+cm}{た}\PY{c+cm}{め}\PY{c+cm}{、}\PY{c+cm}{一}\PY{c+cm}{度}\PY{c+cm}{は}\PY{c+cm}{不}\PY{c+cm}{必}\PY{c+cm}{要}\PY{c+cm}{だ}\PY{c+cm}{と}\PY{c+cm}{思}\PY{c+cm}{っ}\PY{c+cm}{て}\PY{c+cm}{も}\PY{c+cm}{消}\PY{c+cm}{さ}\PY{c+cm}{ず}\PY{c+cm}{に}\PY{c+cm}{、}\PY{c+cm}{こ}\PY{c+cm}{の}\PY{c+cm}{よ}\PY{c+cm}{う}\PY{c+cm}{に}\PY{c+cm}{コ}\PY{c+cm}{メ}\PY{c+cm}{ン}\PY{c+cm}{ト}\PY{c+cm}{と}\PY{c+cm}{し}\PY{c+cm}{て}\PY{c+cm}{残}\PY{c+cm}{し}\PY{c+cm}{て}\PY{c+cm}{お}\PY{c+cm}{く}\PY{c+cm}{こ}\PY{c+cm}{と}\PY{c+cm}{を}\PY{c+cm}{お}\PY{c+cm}{す}\PY{c+cm}{す}\PY{c+cm}{め}\PY{c+cm}{し}\PY{c+cm}{ま}\PY{c+cm}{す}\PY{c+cm}{。}
+        \PY{c+cm}{=\PYZsh{}}
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{Help}\label{help}
+
+プログラミンの上達のためには、自ら手を動かしてコードを書くことも重要ですが、プログラミングが上手い人のコードを真似ることも重要です。ですが、他人のコードを参考にしていると必ずあなたの知らない関数と出会うことでしょう。
+
+Juliaでは、そのような未知の関数の動作を知りたい場合は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{?関数名}
+\end{Highlighting}
+\end{Shaded}
+
+とすることで使い方を調べることが出来ます。ただし、全ての関数に Help
+があるわけではないので、そのようなときはネットで調べるか、公式ドキュメントを当たってください。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{?}\PY{n}{fft}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+search: \textbf{f}\textbf{f}\textbf{t} \textbf{f}\textbf{f}\textbf{t}! \textbf{F}\textbf{F}\textbf{T}W \textbf{f}\textbf{f}\textbf{t}shift r\textbf{f}\textbf{f}\textbf{t} i\textbf{f}\textbf{f}\textbf{t} b\textbf{f}\textbf{f}\textbf{t} i\textbf{f}\textbf{f}\textbf{t}! b\textbf{f}\textbf{f}\textbf{t}! i\textbf{f}\textbf{f}\textbf{t}shift ir\textbf{f}\textbf{f}\textbf{t} br\textbf{f}\textbf{f}\textbf{t}
+
+
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}3}]:}
+    
+    \begin{verbatim}
+fft(A [, dims])
+\end{verbatim}
+
+Performs a multidimensional FFT of the array \texttt{A}. The optional
+\texttt{dims} argument specifies an iterable subset of dimensions
+(e.g.~an integer, range, tuple, or array) to transform along. Most
+efficient if the size of \texttt{A} along the transformed dimensions is
+a product of small primes; see \texttt{nextprod()}. See also
+\texttt{plan\_fft()} for even greater efficiency.
+
+A one-dimensional FFT computes the one-dimensional discrete Fourier
+transform (DFT) as defined by
+
+\[
+\operatorname{DFT}(A)[k] =
+  \sum_{n=1}^{\operatorname{length}(A)}
+  \exp\left(-i\frac{2\pi
+  (n-1)(k-1)}{\operatorname{length}(A)} \right) A[n].
+\]
+
+A multidimensional FFT simply performs this operation along each
+transformed dimension of \texttt{A}.
+
+!!! note * Julia starts FFTW up with 1 thread by default. Higher
+performance is usually possible by increasing number of threads. Use
+\texttt{FFTW.set\_num\_threads(Sys.CPU\_CORES)} to use as many threads
+as cores on your system. * This performs a multidimensional FFT by
+default. FFT libraries in other languages such as Python and Octave
+perform a one-dimensional FFT along the first non-singleton dimension of
+the array. This is worth noting while performing comparisons. For more
+details, refer to the
+\href{:ref:\%60man-noteworthy-differences\%60}{``Noteworthy Differences
+from other Languages''} section of the manual.
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{簡単な数値計算}\label{ux7c21ux5358ux306aux6570ux5024ux8a08ux7b97}
+
+千里の道も一歩から。まずは簡単な四則演算からプログラミングの初歩を学びましょう。
+次の空欄に 1 + 1 や 2 * 8 など簡単な計算式を入力し、Shift - Enter
+で実行してみましょう。
+
+他のプログラミング言語同様、Julia での四則演算は+, -, *, / を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{3}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 4
+\end{Verbatim}
+        
+    プログラミング言語によっては
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{整数 / 整数 = 整数}
+\end{Highlighting}
+\end{Shaded}
+
+となりますが、Juliaでは小数になります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+m+mi}{3} \PY{o}{/} \PY{l+m+mi}{2} \PY{c}{\PYZsh{} C言語で同様のことをすると 1 になります。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 1.5
+\end{Verbatim}
+        
+    商を求めるには div 関数を、余りを求めるには mod, rem, \%
+のいずれかを使います。
+
+正の整数同士の剰余算では mod, rem
+も同じ値を返しますが、負の整数と正の整数では mod と rem
+で違う値を返します。気になる人は ?mod, ?rem
+でどのように違うのか調べてみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{div}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 2
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{mod}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 2
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+m+mi}{10} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 1
+\end{Verbatim}
+        
+    divrem 関数を使うと商と余りを一度に計算することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{divrem}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (2,1)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    他の一般的なプログラミング言語と違い Julia
+では分数も扱うことが出来ます。分数同士の四則演算では結果も分数になりますが、
+分数 * 小数 などとすると結果は小数になります。
+\(\displaystyle \frac{a}{b}\)を表現するためには
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{a // b}
+\end{Highlighting}
+\end{Shaded}
+
+と打ちます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{l+m+mi}{3}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 3//2
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{l+m+mi}{2}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{6} \PY{c}{\PYZsh{} 自動的に約分される}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 1//3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{l+m+mi}{2}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mi}{3}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{4}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 17//12
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{l+m+mi}{2}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3} \PY{o}{*} \PY{l+m+mi}{6}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 4//1
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{l+m+mi}{2}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3} \PY{o}{*} \PY{l+m+mf}{1.5}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 1.0
+\end{Verbatim}
+        
+    その他よく使うものとして、べき乗は \^{} を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{l+m+mi}{2}\PY{o}{\PYZca{}}\PY{l+m+mi}{6} \PY{c}{\PYZsh{} 2の6乗}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 64
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{変数}\label{ux5909ux6570}
+
+電卓代わりに使うのならば上記のような使い方でも良いですが、プログラムでは一度計算した結果を再度使用することが多々有ります。そのたびに計算式を書いていては非効率的です。このようなときは変数を用いて計算結果を保存しましょう。変数
+x に 10 を保存する場合は以下のようにします。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+     \NormalTok{x = }\FloatTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+数学では =
+は等号ですが、プログラミングの世界では代入を表します。つまり、x = 10
+と書いたら、 x という名前がついた箱に 10
+という数字を格納することを意味します。
+
+C言語などのコンパイラ型言語では
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int} \NormalTok{x = }\DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+と変数の型を宣言する必要がありますが、Juliaではそのような型宣言は必要ありません。
+
+変数名にはローマ字以外にもアンダーバー" \_ "
+などの記号も使えますが、以下のものは使えません。 - ピリオド . コンマ ,
+を入れた変数名 - for, if などのすでに特殊な意味を持つ文字 -
+数字から始まるもの
+
+\textbf{Good names} - hoge - Hoge \#
+Juliaでは大文字と小文字は区別されます - piyo\_foo - \_tux - 九州 \#
+Juliaでは漢字も変数名として使えます。
+
+\textbf{Bad names} - hoge.piyo - 123foo - if
+
+変数名には文法上許す限りどんなものでも使えますが、Julia
+推奨の変数名の付け方もあります。これを知っておくとヘルプを見なくてもどのようなものか何となくわかるようになります。興味のある人は\href{http://docs.julialang.org/en/latest/manual/variables.html\#Stylistic-Conventions-1}{公式マニュアル}を見てみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 10
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{x} \PY{c}{\PYZsh{} x の中身を確認して実際に 10 が入っていることを確認してみましょう。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 10
+\end{Verbatim}
+        
+    変数を利用すると下記のようにコードの再利用性が上がります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{10} \PY{c}{\PYZsh{} a, b, c の値を変えて実行してみましょう。}
+         \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{90}
+         \PY{p}{(}\PY{n}{a} \PY{o}{*} \PY{n}{b} \PY{o}{*} \PY{n}{c}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{a} \PY{o}{*} \PY{n}{b} \PY{o}{+} \PY{n}{b} \PY{o}{*} \PY{n}{c} \PY{o}{+} \PY{n}{c} \PY{o}{*} \PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 2.25
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{π} \PY{c}{\PYZsh{} π には始めから円周率の値が入っている}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} π = 3.1415926535897{\ldots}
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{田中} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{太郎} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{田中} \PY{o}{*} \PY{n}{太郎}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 30
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsubsection{変数の更新}\label{ux5909ux6570ux306eux66f4ux65b0}
+
+先程は変数 x に 10 という値を代入しましたが、x = 100
+とすると変数の値を100に更新することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 10
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 100
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{x} \PY{c}{\PYZsh{} 値が 100 に更新された}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 100
+\end{Verbatim}
+        
+    現在の変数 x
+の値を、2倍したものに更新するにはどのようにしたらよいでしょうか？
+わざわざ変数の値を確認して
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = }\FloatTok{2} \NormalTok{* }\FloatTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+としていては面倒この上ありません。
+
+このような場合には
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = }\FloatTok{2} \NormalTok{* x}
+\end{Highlighting}
+\end{Shaded}
+
+とすることによって変数の値を更新することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{x}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 100
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 200
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{x}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} 200
+\end{Verbatim}
+        
+    掛け算だけでなく、その他の演算に対しても同様の文法で値を更新することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{x} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} 202
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{x} \PY{o}{=} \PY{n}{x} \PY{o}{/} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 101.0
+\end{Verbatim}
+        
+    上の計算例では
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = }\FloatTok{2} \NormalTok{* x}
+\end{Highlighting}
+\end{Shaded}
+
+と書きましたが、全く同じ意味で
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x *= }\FloatTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+と書くことも出来ます。このような書き方は慣れるまでに時間がかかるかもしれませんが、プログラミングではこのように書くほうがより一般的なので早く慣れましょう。
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule
+x = x + a & x += a\tabularnewline
+\midrule
+\endhead
+x = x - a & x -= a\tabularnewline
+x = x * a & x *=a \textbar{} \textbar{} x = x/a \textbar{} x /= a
+\textbar{}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{n}{a}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 12
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{比較演算子}\label{ux6bd4ux8f03ux6f14ux7b97ux5b50}
+
+比較演算子は2つの値を比較するときに使う演算子です。名前のまんまですね。比較演算子には以下のようなものが有ります。
+
+\begin{longtable}[c]{@{}ll@{}}
+\toprule
+Operator & Name\tabularnewline
+\midrule
+\endhead
+== & equality\tabularnewline
+!=, ≠ & inequality\tabularnewline
+\textless{} & less than\tabularnewline
+\textless{}=, ≤ & less than or equal to\tabularnewline
+\textgreater{} & greater than\tabularnewline
+\textgreater{}=, ≥ & greater than or equal to\tabularnewline
+\bottomrule
+\end{longtable}
+
+実際に使ってみてどのような結果が返ってくるのか試してみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{l+m+mi}{1} \PY{o}{\PYZlt{}} \PY{l+m+mi}{3}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{l+m+mi}{10} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} false
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{l+m+mf}{2.5} \PY{o}{\PYZlt{}=} \PY{l+m+mf}{2.5}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{10.0}
+         \PY{n}{x} \PY{o}{==} \PY{n}{y}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{論理演算}\label{ux8ad6ux7406ux6f14ux7b97}
+
+\begin{longtable}[c]{@{}lllllllllll@{}}
+\toprule
+P & Q & P∧Q & P∨Q & ¬P∧Q & P∨¬Q & ¬(P∧Q) & ¬P∨¬Q & ¬(P∨Q) & ¬P∧¬Q &
+P∧¬Q\tabularnewline
+\midrule
+\endhead
+T & T & T & T & F & T & F & F & F & F & F\tabularnewline
+T & F & F & T & F & T & T & T & F & F & T\tabularnewline
+F & T & F & T & T & F & T & T & F & F & F\tabularnewline
+F & F & F & F & F & T & T & T & T & T & F\tabularnewline
+\bottomrule
+\end{longtable}
+
+Juliaにおいて「かつ (and)」は " \&\& ``, 「または (or)」は''
+\textbar{}\textbar{} ``, 否定は真偽の前に'' ! "
+をつけます。実際にいろいろ試してみて上の真偽表と同じになるか確認してみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{true}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{o}{!}\PY{n}{true}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} false
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{true} \PY{o}{\PYZam{}\PYZam{}} \PY{n}{true}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{true} \PY{o}{\PYZam{}\PYZam{}} \PY{n}{false}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} false
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{true} \PY{o}{||} \PY{n}{false}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{l+m+mi}{1} \PY{o}{\PYZlt{}} \PY{l+m+mi}{3} \PY{o}{\PYZam{}\PYZam{}} \PY{l+m+mi}{3} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} true
+\end{Verbatim}
+        
+    Julia 以外のプログラミング言語では \(a < x < b\) を表現する場合、
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{a < x && x < b}
+\end{Highlighting}
+\end{Shaded}
+
+のように2つの条件式を \&\& でつなぐ必要が有りますが、Juliaでは
+\(a < x < b\) のまま使えるため、より数学的に表現することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{l+m+mi}{1} \PY{o}{\PYZlt{}} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{文字列}\label{ux6587ux5b57ux5217}
+
+今までは変数に数字を代入してきましたが、変数に代入できるものは数字に限りません。変数には後述する配列や関数などあらゆる物を代入することが出来ます。
+
+数字以外の例としてここでは変数に文字列を代入してみましょう。Julia では "
+" で囲った部分が文字列になります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{str} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Hello!}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} "Hello!"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{str}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} "Hello!"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{文字列1 * 文字列2}
+\end{Highlighting}
+\end{Shaded}
+
+とすると文字列1, 2が連結されます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{str1} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Hello }\PY{l+s}{\PYZdq{}}
+         \PY{n}{str2} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{World!}\PY{l+s}{\PYZdq{}}
+         \PY{n}{str1} \PY{o}{*} \PY{n}{str2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} "Hello World!"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    べき乗にすると繰り返しになります
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{l+s}{\PYZdq{}}\PY{l+s}{トゥー}\PY{l+s}{\PYZdq{}}\PY{o}{\PYZca{}}\PY{l+m+mi}{8} \PY{o}{*} \PY{l+s}{\PYZdq{}}\PY{l+s}{ どこまで行くの 僕達今夜}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} "トゥートゥートゥートゥートゥートゥートゥートゥー どこまで行くの 僕達今夜"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    文字列の中に変数の値を入れたい場合は、\$変数名 とします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{today} \PY{o}{=} \PY{n}{Dates}\PY{o}{.}\PY{n}{today}\PY{p}{(}\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{今日は }\PY{l+s+si}{\PYZdl{}today}\PY{l+s}{ です}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} "今日は 2017-03-15 です"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{練習問題}\label{ux7df4ux7fd2ux554fux984c}
+
+\subsubsection{1.1}\label{section}
+
+下記のコードの出力結果はどれか?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x = }\FloatTok{5}
+\NormalTok{print(}\StringTok{"x"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  x
+\item
+  5
+\item
+  ``x''
+\item
+  ``5''
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsubsection{1.2}\label{section}
+
+下記のコードの出力結果はどれか?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x = }\FloatTok{5}
+\NormalTok{print(}\StringTok{"$x"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  x
+\item
+  5
+\item
+  ``\$x''
+\item
+  ``\$5''
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsubsection{2.}\label{section}
+
+a, bの値はいくつか?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a = }\FloatTok{3}
+\NormalTok{b = }\FloatTok{7}
+\NormalTok{b = a}
+\NormalTok{println(a, }\StringTok{", "}\NormalTok{, b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  (a, b) = (3, 7)
+\item
+  (a, b) = (7, 3)
+\item
+  (a, b) = (3, 3)
+\item
+  (a, b) = (7, 7)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsubsection{3.}\label{section}
+
+c の値はいくつになるか?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a, b, c = }\FloatTok{18}\NormalTok{, }\FloatTok{9}\NormalTok{, }\FloatTok{2}
+\NormalTok{c += a}
+\NormalTok{c *= b}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsubsection{4.}\label{section}
+
+rem, mod の答えが一致する組み合わせはどれか? - rem(201, 5), mod(-201, 5)
+- rem(201, 5), mod(201, 5) - rem(-19, 10), mod(-19, 10) - rem(19, -10),
+mod(19, -10)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsubsection{5.}\label{section}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a = -}\FloatTok{1}
+\NormalTok{b = }\FloatTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+の時、remを使って mod(a,b) と同じ結果を得るためにはどうしたら良いか？
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

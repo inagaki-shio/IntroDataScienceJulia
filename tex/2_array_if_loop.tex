@@ -1,0 +1,1312 @@
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,dvipdfmx,uplatex]{jsarticle}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{2\_array\_if\_loop}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Introduction to Data Science with
+Julia}\label{introduction-to-data-science-with-julia}
+
+\subsection{目次}\label{ux76eeux6b21}
+
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{ux914dux5217}{配列}
+\item
+  \protect\hyperlink{ux8f9eux66f8}{辞書}
+\item
+  \protect\hyperlink{Tuple}{Tuple}
+\item
+  \protect\hyperlink{if-ux6587}{if 文}
+\item
+  \protect\hyperlink{ux30ebux30fcux30d7ux6587}{ループ文}
+\item
+  \protect\hyperlink{ux7df4ux7fd2ux554fux984c}{練習問題}
+\end{itemize}
+
+    \section{配列}\label{ux914dux5217}
+
+前回は値を保存しておくために変数を使うことを学びました。今回は複数の値を保存することのできる配列について学びましょう。
+
+と、その前にまずは前回の復習として、5人の学生の試験の点数の平均を求めるプログラムを書いてみてください。
+各学生の点数は
+
+九州太郎: 73 九州花子: 86 中州河旗: 30 福岡健 : 48 博多勉 : 53
+
+とします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    
+
+    出来たでしょうか？ あなたが書いたコードは 1,
+2のどちらのタイプになったでしょうか？それとも全く別の方法？
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FloatTok{73} \NormalTok{+ }\FloatTok{86} \NormalTok{+ }\FloatTok{30} \NormalTok{+ }\FloatTok{48} \NormalTok{+ }\FloatTok{53}\NormalTok{) / }\FloatTok{5}
+\end{Highlighting}
+\end{Shaded}
+\item
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{taro = }\FloatTok{73}
+\NormalTok{hanako = }\FloatTok{86}
+\NormalTok{kawabata = }\FloatTok{30}
+\NormalTok{ken = }\FloatTok{48}
+\NormalTok{tsutomu = }\FloatTok{53}
+\NormalTok{(taro + hanako + kawabata + ken + tsutomu) / }\FloatTok{5}
+\end{Highlighting}
+\end{Shaded}
+\end{enumerate}
+
+(1)は前回言ったように再利用性が低いコードになっています。今は平均しか求めなかったのでこのようなコードでも良いですが、他に分散や標準偏差も一緒に求めよと言われた場合、学生の点数が変わるごとに計算式自体に修正を加えなければならないため大変です。
+
+(2)は変数に値を保存することによって再利用性が(1)に比べて上がっています。平均を求めるだけの場合ならば(1)よりタイピングする量が多くなり一見すると非効率的です。しかし、分散、標準偏差に関しても一度このように変数を使って計算式を書いておけば、学生の点数だけを修正するだけで計算式自体に手を加えず再利用することが出来ます。また修正箇所が少なくなることでバグが発生しづらくなります。
+
+さて、今は5人と少数だったので良いですが、これが30人、100人となったら変数名を考えるだけで大変です。このように多数の要素を一つにまとめて保存したい場合には配列を使うと便利です。配列を使うと一つの変数名で複数の要素を保存することが出来ます。
+
+Julia で配列を作るには {[} {]}
+で格納したい要素を囲みます。各要素はコンマ" , " または空白スペース " "
+で区切ります。
+コンマで区切ると数学で言う縦ベクトルが、スペースで区切ると横ベクトルが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{score\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{73}\PY{p}{,} \PY{l+m+mi}{86}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{48}\PY{p}{,} \PY{l+m+mi}{53}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} 5-element Array\{Int64,1\}:
+         73
+         86
+         30
+         48
+         53
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{score\PYZus{}row} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{73} \PY{l+m+mi}{86} \PY{l+m+mi}{30} \PY{l+m+mi}{48} \PY{l+m+mi}{53}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} 1×5 Array\{Int64,2\}:
+         73  86  30  48  53
+\end{Verbatim}
+        
+    変数に値を代入した時は代入した数だけが出力されましたが、配列を作った時には数だけでなく
+
+\begin{verbatim}
+5-element Array{Int64,1}
+\end{verbatim}
+
+とも出力されました。これは今作った配列の型を表示しています。それぞれの意味を分解すると
+
+\begin{itemize}
+\tightlist
+\item
+  5-element: 配列の要素数は5つ
+\item
+  Array: 変数の型は配列型
+\item
+  Int64: 配列の各要素は倍精度整数型
+\item
+  1: 1次元配列
+\end{itemize}
+
+という意味になります。プログラミング言語での1次元や2次元というのは線形代数の次元とは違い、1次元方向に広がっているか、2次元的に広がっているかという意味になります。そのため行列は要素がいかなるものであっても2次元配列です。
+
+横ベクトルの配列の型についても同様に意味を分解すると
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \FloatTok{1}\NormalTok{×}\FloatTok{5} \DataTypeTok{Array}\NormalTok{\{}\DataTypeTok{Int64}\NormalTok{,}\FloatTok{2}\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  1×5: サイズが 1×5 の行列
+\item
+  Array: 変数の型は配列型
+\item
+  Int64: 配列の各要素は倍精度整数型
+\item
+  2: 2次元配列
+\end{itemize}
+
+という意味になります。横ベクトルは横に1次元的に広がっているのに2次元配列というのは奇妙な感じがしますが、Juliaでは横ベクトルは薄い行列と認識されます。これは言語上の仕様なので受け入れてください。
+
+配列の \(i\) 番目の要素を抜き出すためには
+
+\begin{verbatim}
+    配列名[i]
+\end{verbatim}
+
+とします。C言語やPythonなどの多くのプログラミング言語では配列の添字が 0
+から始まりますが、MATLAB や Julia では通常の数学同様 1 から始まります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{score\PYZus{}col}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{c}{\PYZsh{} 2番目の要素}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 86
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{score\PYZus{}col}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{c}{\PYZsh{} 存在しないものを指定するとエラーが出ます}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        BoundsError: attempt to access 5-element Array\{Int64,1\} at index [10]
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    配列の要素の値の更新は普通の変数同様に行うことが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{score\PYZus{}col}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 14
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{score\PYZus{}col} \PY{c}{\PYZsh{} 第2要素が14になった}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 5-element Array\{Int64,1\}:
+         73
+         14
+         30
+         48
+         53
+\end{Verbatim}
+        
+    しかし、整数型の配列に文字列を代入することは出来ません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{score\PYZus{}col}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{foo}\PY{l+s}{\PYZdq{}} \PY{c}{\PYZsh{} エラーが出る}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        MethodError: Cannot `convert` an object of type String to an object of type Int64
+    This may have arisen from a call to the constructor Int64({\ldots}),
+    since type constructors fall back to convert methods.
+
+        
+
+         in setindex!(::Array\{Int64,1\}, ::String, ::Int64) at ./array.jl:415
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    また、整数型の配列には 1.0 や 2170.0
+などの整数に変換できる小数は代入することは出来ますが、 1.5
+などの小数は代入することは出来ません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{score\PYZus{}col}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{190.0}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 190.0
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{score\PYZus{}col} \PY{c}{\PYZsh{} 自動的に整数型に変換される。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 5-element Array\{Int64,1\}:
+         190
+          14
+          30
+          48
+          53
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{score\PYZus{}col}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{c}{\PYZsh{} 整数に変換できないためエラーが出る}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        InexactError()
+
+        
+
+         in setindex!(::Array\{Int64,1\}, ::Float64, ::Int64) at ./array.jl:415
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{score\PYZus{}col} \PY{c}{\PYZsh{} 第1要素に変化なし}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 5-element Array\{Int64,1\}:
+          190
+           14
+           30
+           48
+           53
+\end{Verbatim}
+        
+    整数だけでなく小数も代入できる配列を作るためには始めから
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{[}\FloatTok{10.0}\NormalTok{, }\FloatTok{12}\NormalTok{, }\FloatTok{4}\NormalTok{, }\FloatTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+などと小数を混ぜて配列を作るか、または、下記のように明示的に小数型であることを宣言して配列を作ります。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{Float64}\NormalTok{[}\FloatTok{10}\NormalTok{, }\FloatTok{12}\NormalTok{, }\FloatTok{4}\NormalTok{, }\FloatTok{2}\NormalTok{] }\CommentTok{# Float64: 倍精度浮動小数点}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kt}{Float64}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 4-element Array\{Float64,1\}:
+          10.0
+          12.0
+           4.0
+           2.0
+\end{Verbatim}
+        
+    C言語やJavaなどのプログラミング言語では配列の要素に違う型の値を同時に入れることは出来ませんが、Julia
+では違う型の値も同時に格納することが出来ます。この時配列は Any
+型になります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{num\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{hoge}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{c}{\PYZsh{} 整数、浮動小数点、文字列が混在}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 3-element Array\{Any,1\}:
+          1      
+          2.5    
+           "hoge"
+\end{Verbatim}
+        
+    Any型の配列では各要素を自由に更新することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{num\PYZus{}str}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 1
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{num\PYZus{}str}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{piyopiyo}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} "piyopiyo"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{num\PYZus{}str} \PY{c}{\PYZsh{} 第1要素が 1 から \PYZdq{}piyopiyo\PYZdq{} に変わる}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 3-element Array\{Any,1\}:
+           "piyopiyo"
+          2.5        
+           "hoge"    
+\end{Verbatim}
+        
+    小数の時同様
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{Any}\NormalTok{[}\FloatTok{12}\NormalTok{, }\FloatTok{3}\NormalTok{, }\FloatTok{4}\NormalTok{, }\FloatTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+とすると要素がいかなるものであろうとも Any 型の配列が出来ます。
+しかし、Any
+型はその柔軟性故にバグが起こる可能性が高くなるのでなるべく使わないようにしましょう。
+
+プログラミングにおいてエラーは忌み嫌うものではなく、むしろ自分を成長させてくれるものです。エラーが出るとすぐに自分の間違いに気づくことが出来ますが、エラーが出ないとバグを見落としてしまう可能性が高くなります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kt}{Any}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 4-element Array\{Any,1\}:
+          12
+           3
+           4
+           2
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{辞書}\label{ux8f9eux66f8}
+
+配列では各要素を指定するのに配列の何番目にあるかで指定しました。配列は学生の成績の平均などを求めたい場合など個人を特定する必要のないデータを保存するには良いですが、各個人の成績を知りたい場合、添字番号と学生を対応付けなければならないので不便です。
+
+添字番号ではなく、名前や学籍番号で指定できたほうが便利なのはいうまでもないでしょう。このようなことをしたい場合には辞書(連想配列)を使います。辞書を使うと
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{scores[}\StringTok{"九州太郎"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+といった方法で値を指定することが出来ます。
+
+辞書の基本構文
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \DataTypeTok{Dict}\NormalTok{(a=>b, ...)}
+\end{Highlighting}
+\end{Shaded}
+
+ここで、a は key、b は value と呼ばれる。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{scores} \PY{o}{=} \PY{n}{Dict}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{九州太郎}\PY{l+s}{\PYZdq{}} \PY{o}{=}\PY{o}{\PYZgt{}} \PY{l+m+mi}{73}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{九州花子}\PY{l+s}{\PYZdq{}} \PY{o}{=}\PY{o}{\PYZgt{}} \PY{l+m+mi}{86}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} Dict\{String,Int64\} with 2 entries:
+           "九州… => 73
+           "九州… => 86
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{scores}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{九州太郎}\PY{l+s}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 73
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{scores}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{九州花子}\PY{l+s}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 86
+\end{Verbatim}
+        
+    辞書の全ての key を調べるには keys 関数を使います
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{keys}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} Base.KeyIterator for a Dict\{String,Int64\} with 2 entries. Keys:
+           "九州太郎"
+           "九州花子"
+\end{Verbatim}
+        
+    辞書の全ての value を調べるには values 関数を使います
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{values}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} Base.ValueIterator for a Dict\{String,Int64\} with 2 entries. Values:
+           73
+           86
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    次のように名前と点数が別の配列に入っていて、この2つを辞書に統合したい場合には
+zip 関数を使うと便利です。
+
+※
+辞書型では要素の順番に意味はないので作った後の中身は元の配列の中身とは異なります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{名前} \PY{o}{=} \PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{九州太郎}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{九州花子}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{中州河旗}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{福岡健}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{博多勉}\PY{l+s}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{点数} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{73}\PY{p}{,} \PY{l+m+mi}{86}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{48}\PY{p}{,} \PY{l+m+mi}{53}\PY{p}{]}
+         \PY{n}{scores2} \PY{o}{=} \PY{n}{Dict}\PY{p}{(}\PY{n}{zip}\PY{p}{(}\PY{n}{名前}\PY{p}{,} \PY{n}{点数}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} Dict\{String,Int64\} with 5 entries:
+           "中州… => 30
+           "九州… => 73
+           "博多… => 53
+           "福岡… => 48
+           "九州… => 86
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{scores2}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{博多勉}\PY{l+s}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 53
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{keys}\PY{p}{(}\PY{n}{scores2}\PY{p}{)} \PY{c}{\PYZsh{} 上の 名前 配列とは順番が違う}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} Base.KeyIterator for a Dict\{String,Int64\} with 5 entries. Keys:
+           "中州河旗"
+           "九州太郎"
+           "博多勉"
+           "福岡健"
+           "九州花子"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{Tuple}\label{tuple}
+
+配列や辞書ではあとで値を更新することが出来ましたが、時としては定数のように値を更新したくない場合もあります。そのような時には
+Tuple を使いましょう。
+
+配列を作るときは要素を {[} {]} で囲みましたが、Tuple では ( )
+で囲みます。
+
+※ 本当は ( )
+がなくても、コンマ区切りにするだけでも良いのですが、後からみて Tuple
+だということがわかりやすいので ( ) で囲むことをおすすめします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{A} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Hoge}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} (10,"Hoge",[1,2,3])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{c}{\PYZsh{} 要素へのアクセス方法は配列と同じ}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} 10
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} "Hoge"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 3-element Array\{Int64,1\}:
+          1
+          2
+          3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 2
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100} \PY{c}{\PYZsh{} 値を更新することが出来ない}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        MethodError: no method matching setindex!(::Tuple\{Int64,String,Array\{Int64,1\}\}, ::Int64, ::Int64)
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{if 文}\label{if-ux6587}
+
+次に条件分岐を学びましょう。条件分岐とは下記のフローチャートのように条件により処理を変えるような操作のことを言います。
+{[}Conditional (computer programming) - Wikipedia{]}
+
+Julia での if 文の基本構文は次のようになります。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{if} \NormalTok{条件式1}
+        \NormalTok{処理1}
+    \KeywordTok{elseif} \NormalTok{条件式2}
+        \NormalTok{処理2}
+    \KeywordTok{elseif} \NormalTok{条件式3}
+    \NormalTok{.}
+    \NormalTok{.}
+    \NormalTok{.}
+    \KeywordTok{else}
+        \NormalTok{処理n}
+    \KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+例として n が - 正の数の時: nは正の数です - 負の数の時: nは負の数です -
+0の時: nは0ですと と出力するプログラムを書いてみます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10} \PY{c}{\PYZsh{} n の値を変えて実行してみましょう}
+         \PY{k}{if} \PY{n}{n} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}
+             \PY{n}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}n}\PY{l+s}{ は正の数です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{elseif} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}
+             \PY{n}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}n}\PY{l+s}{ は負の数です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{else}
+             \PY{n}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}n}\PY{l+s}{ は0です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 は正の数です
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    if文の中にさらにif文を入れることも出来ます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{k}{if} \PY{n}{n} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}n}\PY{l+s}{ は正の数です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{n} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}
+                 \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}n}\PY{l+s}{ は偶数です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{end}
+             
+         \PY{k}{elseif} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}n}\PY{l+s}{ は負の数です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{else}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}n}\PY{l+s}{ は0です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 は正の数です
+10 は偶数です
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{ループ文}\label{ux30ebux30fcux30d7ux6587}
+
+ループ分を使うとある処理を繰り返し行うことが出来ます。ループ分には for文
+と while文の2つがあります。
+
+\subsection{for文}\label{forux6587}
+
+for文を使うとある処理を指定した回数繰り返すことが出来ます。
+
+for文の基本構文
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{for} \NormalTok{dummy_var }\KeywordTok{in} \NormalTok{list}
+        \NormalTok{body}
+    \KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Hello World!}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}
+             \PY{n}{println}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{10} \PY{c}{\PYZsh{} 1 〜 10 までの数を2刻み}
+             \PY{n}{println}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+3
+5
+7
+9
+
+    \end{Verbatim}
+
+    if 文同様、for 文の中に for 文を入れることも出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{3}
+             \PY{k}{for} \PY{n}{j} \PY{k}{in} \PY{n}{i}\PY{p}{:}\PY{l+m+mi}{3}
+                 \PY{n}{println}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+             \PY{k}{end}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1,1)
+(1,2)
+(1,3)
+(2,2)
+(2,3)
+(3,3)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    他のプログラミング言語では普通出来ませんが、Julia では多重の for
+文では次の例のように for \ldots{} end を省略する書き方が出来ます。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{for} \NormalTok{i }\KeywordTok{in} \NormalTok{..., j }\KeywordTok{in} \NormalTok{...}
+    \NormalTok{body}
+\KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+ただし、このような書き方ができるのは
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{for} \NormalTok{...}
+        \KeywordTok{for} \NormalTok{...}
+             \NormalTok{body}
+\end{Highlighting}
+\end{Shaded}
+
+のように for が連続する場合だけで
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{for} \NormalTok{...}
+        \NormalTok{body}
+        \KeywordTok{for} \NormalTok{...}
+            \NormalTok{body}
+\end{Highlighting}
+\end{Shaded}
+
+のように for と for の間に処理が入る場合には使えません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{j} \PY{k}{in} \PY{n}{i}\PY{p}{:}\PY{l+m+mi}{3}
+             \PY{n}{println}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1,1)
+(1,2)
+(1,3)
+(2,2)
+(2,3)
+(3,3)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    list の部分には配列を使うことも出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{items} \PY{o}{=} \PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{Kyushu}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{University}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{School of Interdisciplinary Science and Innovation}\PY{l+s}{\PYZdq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{item} \PY{k}{in} \PY{n}{items}
+             \PY{n}{println}\PY{p}{(}\PY{n}{item}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Kyushu
+University
+School of Interdisciplinary Science and Innovation
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{while文}\label{whileux6587}
+
+for 文は指定した回数繰り返すような構文でした。while
+文ではループ回数に上限はなく、ある条件が満たされるまでループが回り続けます。
+
+While文の基本構文
+
+\begin{Shaded}
+\begin{Highlighting}[]
+     \KeywordTok{while} \NormalTok{条件式}
+         \NormalTok{処理}
+     \KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{while} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}
+             \PY{n}{println}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+    \end{Verbatim}
+
+    while 文では常に条件が true
+になると無限ループを起こし、その後の処理が実行されなくなってしまうので注意してください。
+無限ループに陥ってしまったら上の ■
+をクリックし、処理を中断させてください。
+
+無限ループに陥る例
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i = }\FloatTok{0}
+\KeywordTok{while} \NormalTok{true}
+    \NormalTok{i += }\FloatTok{1}
+\KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{練習問題}\label{ux7df4ux7fd2ux554fux984c}
+
+    \subsection{1.}\label{section}
+
+要素が{[}1, 2, 3, \ldots{}, 1000{]}となるような配列を作成せよ
+
+ヒント: collect関数 または 内包表記(comprehension)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{2.}\label{section}
+
+スイス、エジプト、ホンジュラスの公用語を調べ、国名を key, 公用語を value
+とする辞書を作成せよ
+
+ヒント: 公用語が複数ある場合は value を 配列または Tuple にする
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{3.}\label{section}
+
+身長・体重よりBMIを計算し、計算結果より 痩せすぎ、標準、肥満を if
+文とprint 関数を使って出力せよ
+
+BMIの計算方法:
+\[ \text{BMI} = \frac{\text{体重(kg)}}{\text{身長(m)}^2}\]
+
+BMIによる肥満判定
+
+\begin{verbatim}
+<th class="tg-031e">BMI</th>
+<th class="tg-031e">判定</th>
+\end{verbatim}
+
+\begin{verbatim}
+<td class="tg-031e">〜18.5</td>
+<td class="tg-031e">痩せている</td>
+\end{verbatim}
+
+\begin{verbatim}
+<td class="tg-031e">18.5～25</td>
+<td class="tg-031e">標準</td>
+\end{verbatim}
+
+\begin{verbatim}
+<td class="tg-yw4l">25～</td>
+<td class="tg-yw4l">肥満</td>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{4.}\label{section}
+
+for文を使って1からnまでの整数を足し上げるプログラムを作成せよ。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{5.}\label{section}
+
+(1)要素が{[}1, 2, 3, \ldots{}, 1000{]}となるような配列を作成せよ (問題 1
+と同じ) (2) (1)で作成した配列の各要素をfor文を使って2倍せよ
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{6.}\label{section}
+
+for文を使って配列
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = [}\FloatTok{3}\NormalTok{,}\FloatTok{4}\NormalTok{,}\FloatTok{4}\NormalTok{,}\FloatTok{4}\NormalTok{,}\FloatTok{2}\NormalTok{,}\FloatTok{1}\NormalTok{,}\FloatTok{4}\NormalTok{,}\FloatTok{5}\NormalTok{,}\FloatTok{2}\NormalTok{,}\FloatTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+の要素を全て足し上げるプログラムを作成せよ。また、求めた結果を sum(x)
+と比較せよ
+
+ヒント: 配列の要素数は length 関数で知ることができる。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{7.}\label{section}
+
+for文を使って九九表を作成せよ
+
+出力例
+
+\begin{verbatim}
+1   2   3   4   5   6   7   8   9 
+2   4   6   8  10  12  14  16  18 
+3   6   9  12  15  18  21  24  27 
+4   8  12  16  20  24  28  32  36 
+5  10  15  20  25  30  35  40  45 
+6  12  18  24  30  36  42  48  54 
+7  14  21  28  35  42  49  56  63 
+8  16  24  32  40  48  56  64  72 
+9  18  27  36  45  54  63  72  81 
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{8.}\label{section}
+
+フィボナッチ数列の第 \(n\) 項目を求めるプログラムを作成せよ
+
+フィボナッチ数列 \(F_0 = 0\), \(F_1 = 1\), \(F_{n+2} = F_{n+1} + F_{n}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{9.}\label{section}
+
+友人から1000円借りていたとする。10日で1割の金利がついた場合、何日後に借金は100万円を超えるか求めよ
+
+\href{https://ja.wikipedia.org/wiki/\%E3\%83\%88\%E3\%82\%A4\%E3\%83\%81}{トイチ
+- Wikipedia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

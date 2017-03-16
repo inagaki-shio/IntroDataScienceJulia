@@ -1,0 +1,1210 @@
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,dvipdfmx,uplatex]{jsarticle}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{5\_linalg\_statistics}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Introduction to Data Science with
+Julia}\label{introduction-to-data-science-with-julia}
+
+\section{目次}\label{ux76eeux6b21}
+
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{ux7ddaux5f62ux4ee3ux6570}{線形代数}
+\item
+  \protect\hyperlink{ux7d71ux8a08ux91cfux306eux8a08ux7b97}{統計量の計算}
+\item
+  \protect\hyperlink{ux56deux5e30ux76f4ux7dda}{回帰直線}
+\item
+  \protect\hyperlink{ux30a2ux30f3ux30b9ux30b3ux30e0ux306eux4f8b}{アンスコムの例}
+\item
+  \protect\hyperlink{ux30c7ux30fcux30bfux5206ux6790ux5165ux9580}{データ分析入門}
+\item
+  \protect\hyperlink{ux7df4ux7fd2ux554fux984c}{練習問題}
+\end{itemize}
+
+    \section{線形代数}\label{ux7ddaux5f62ux4ee3ux6570}
+
+Julia では線形代数の計算が標準機能として備わっています。
+
+行列 \(A\) と行列 \(B\) の掛け算は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A * B}
+\end{Highlighting}
+\end{Shaded}
+
+と書くだけです。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{A} \PY{o}{=} \PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{B} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{p}{@}\PY{n}{show} \PY{n}{A}
+        \PY{p}{@}\PY{n}{show} \PY{n}{B}
+        \PY{p}{@}\PY{n}{show} \PY{n}{A} \PY{o}{*} \PY{n}{B}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A = [1 4 7; 2 5 8; 3 6 9]
+B = [3 6 2; 5 5 1; 1 6 3]
+A * B = [30 68 27; 39 85 33; 48 102 39]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} 3×3 Array\{Int64,2\}:
+         30   68  27
+         39   85  33
+         48  102  39
+\end{Verbatim}
+        
+    逆行列や行列式、固有値、固有ベクトルなども簡単に計算することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{p}{@}\PY{n}{show} \PY{n}{C} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{inv}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{c}{\PYZsh{} 逆行列}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C = rand(3,3) = [0.0316126 0.605445 0.0169347; 0.222539 0.544538 0.875881; 0.725021 0.297099 0.0125575]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} 3×3 Array\{Float64,2\}:
+         -0.686293  -0.00696504   1.41133  
+          1.71241   -0.0321798   -0.0647877
+         -0.890242   1.16348     -0.318304 
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{det}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{c}{\PYZsh{} 行列式}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 0.3692088373360544
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{eigvals}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{c}{\PYZsh{} 固有値}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 3-element Array\{Complex\{Float64\},1\}:
+           1.17899+0.0im     
+         -0.295143+0.475444im
+         -0.295143-0.475444im
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{eigvecs}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{c}{\PYZsh{} 固有ベクトル}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 3×3 Array\{Complex\{Float64\},2\}:
+         -0.419653+0.0im  -0.0956797+0.556813im  -0.0956797-0.556813im
+         -0.782415+0.0im     -0.4028-0.375644im     -0.4028+0.375644im
+         -0.460129+0.0im    0.614368+0.0im         0.614368-0.0im     
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{trace}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{c}{\PYZsh{} トレース}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 0.5887077924636039
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{rank}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{c}{\PYZsh{} ランク}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}
+        \PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{c}{\PYZsh{} 内積}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 32
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    線形方程式 \(Ax = y\) を解く場合には
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A \textbackslash{} y }\CommentTok{# ￥ はバックスラッシュ}
+\end{Highlighting}
+\end{Shaded}
+
+とします。行列 \(A\) の逆行列は inv(A) として求められるので
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{inv(A) * y}
+\end{Highlighting}
+\end{Shaded}
+
+としても同様の結果が得られますが、A ~y の方がより計算精度が上がります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{A} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{A} \PYZbs{} \PY{n}{y}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 3-element Array\{Float64,1\}:
+         -0.309406
+          0.761443
+         -0.538079
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    その他の行列計算に関しては\href{http://docs.julialang.org/en/stable/manual/linear-algebra/}{公式ドキュメント}を読んでください。
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{統計量の計算}\label{ux7d71ux8a08ux91cfux306eux8a08ux7b97}
+
+\subsection{量的データ (numerical
+data)}\label{ux91cfux7684ux30c7ux30fcux30bf-numerical-data}
+
+Julia では平均や分散などを計算する関数が標準で備わっています。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c}{\PYZsh{} 平均 (mean)}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{mean}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = rand(5) = [0.353628,0.903524,0.159742,0.810534,0.950088]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 0.6355032675516282
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c}{\PYZsh{} 分散 (variance)}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{var}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{c}{\PYZsh{} 補正をなくす場合は、 var(x, corrected=false) とする}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = rand(5) = [0.885045,0.751102,0.742,0.48118,0.592068]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 0.024419059408298135
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c}{\PYZsh{} 標準偏差 (standard deviation)}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{std}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{c}{\PYZsh{} 補正をなくす場合は、 std(x, corrected=false) とする}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = rand(5) = [0.101201,0.790782,0.429018,0.421794,0.422853]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 0.24410191862505906
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c}{\PYZsh{} 中央値 (median)}
+         \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}
+         \PY{n}{median}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 3.0
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c}{\PYZsh{} 第1四分位点（lower quartile）}
+         \PY{n}{quantile}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 2.0
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c}{\PYZsh{} 第1四分位点, 中央値, 第3四分位点（upper quartile）}
+         \PY{n}{quantile}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 3-element Array\{Float64,1\}:
+          2.0
+          3.0
+          4.0
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c}{\PYZsh{} 最大値}
+         \PY{n}{maximum}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 5
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c}{\PYZsh{} 最小値}
+         \PY{n}{minimum}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 1
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c}{\PYZsh{} 最小値と最大値を同時に計算}
+         \PY{n}{extrema}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} (1,5)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c}{\PYZsh{} 相関係数}
+         \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{:}\PY{l+m+mf}{1.0}\PY{p}{:}\PY{l+m+mf}{12.0}
+         \PY{n}{y} \PY{o}{=} \PY{n}{x} \PY{o}{.}\PY{o}{+} \PY{n}{randn}\PY{p}{(}\PY{n}{length}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cor}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 0.9835687891956586
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    mean や var などで
+2次元配列を引数に取ると要素全体の平均などになりますが、第2引数に 1
+と指定すると列ごとの平均、 2 を指定すると行ごとの平均になります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{l+m+mi}{2} \PY{l+m+mi}{3}
+             \PY{l+m+mi}{4} \PY{l+m+mi}{5} \PY{l+m+mi}{6} 
+             \PY{l+m+mi}{7} \PY{l+m+mi}{8} \PY{l+m+mi}{9}\PY{p}{]}
+         \PY{p}{@}\PY{n}{show} \PY{n}{mean}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{p}{@}\PY{n}{show} \PY{n}{mean}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c}{\PYZsh{} 列ごとの平均}
+         \PY{p}{@}\PY{n}{show} \PY{n}{mean}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{c}{\PYZsh{} 行ごとの平均}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mean(x) = 5.0
+mean(x,1) = [4.0 5.0 6.0]
+mean(x,2) = [2.0; 5.0; 8.0]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \href{http://statsbasejl.readthedocs.io/en/latest/index.html}{StatsBase}
+パッケージを使うと統計量の計算がさらにやりやすくなります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{using} \PY{n}{StatsBase}
+\end{Verbatim}
+
+    summarystats
+を使うと、平均と五数要約（\href{https://en.wikipedia.org/wiki/Five-number_summary}{five-number
+summary}）を一度に計算できます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{p}{@}\PY{n}{show} \PY{n}{x} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{StatsBase}\PY{o}{.}\PY{n}{summarystats}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = rand(10) = [0.849495,0.102439,0.979398,0.132961,0.448198,0.801706,0.613595,0.511562,0.641375,0.295273]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} StatsBase.SummaryStats\{Float64\}
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{fieldnames}\PY{p}{(}\PY{n}{result}\PY{p}{)} \PY{c}{\PYZsh{} 各データへアクセスするための名前}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 6-element Array\{Symbol,1\}:
+          :mean  
+          :min   
+          :q25   
+          :median
+          :q75   
+          :max   
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{result}\PY{o}{.}\PY{n}{mean}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 0.5376001014419926
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{result}\PY{o}{.}\PY{n}{q25}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} 0.33350458271318084
+\end{Verbatim}
+        
+    四分位範囲 (Interquartile Range, IQR) を計算するには iqr を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{StatsBase}\PY{o}{.}\PY{n}{iqr}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} 0.42811837334235747
+\end{Verbatim}
+        
+    \href{https://en.wikipedia.org/wiki/Standard_score}{Z-score}
+の計算も出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{StatsBase}\PY{o}{.}\PY{n}{zscore}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 10-element Array\{Float64,1\}:
+           1.04662  
+          -1.46026  
+           1.48253  
+          -1.35784  
+          -0.300004 
+           0.886252 
+           0.255013 
+          -0.0873765
+           0.348236 
+          -0.81317  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{質的データ (categorical
+data)}\label{ux8ceaux7684ux30c7ux30fcux30bf-categorical-data}
+
+質的データを調べるときには countmap や proportionmap を使うと便利です。
+共通要素が何個（何割）あるのかがわかります。
+
+返り値は各要素を key とする辞書です。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{p}{@}\PY{n}{show} \PY{n}{x} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+s+sc}{\PYZsq{}a\PYZsq{}}\PY{p}{:}\PY{l+s+sc}{\PYZsq{}c\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{StatsBase}\PY{o}{.}\PY{n}{countmap}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{c}{\PYZsh{} 共通要素の個数}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = rand('a':'c',10) = ['a','a','b','b','b','a','b','b','b','b']
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} Dict\{Char,Int64\} with 2 entries:
+           'b' => 7
+           'a' => 3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{abc} \PY{o}{=} \PY{n}{StatsBase}\PY{o}{.}\PY{n}{proportionmap}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{c}{\PYZsh{} 共通要素の全体の割合}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} Dict\{Char,Float64\} with 2 entries:
+           'b' => 0.7
+           'a' => 0.3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{abc}\PY{p}{[}\PY{l+s+sc}{\PYZsq{}a\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 0.3
+\end{Verbatim}
+        
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{度数分布}\label{ux5ea6ux6570ux5206ux5e03}
+
+まずは Plots を使ってヒストグラムを書いてみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{import} \PY{n}{Plots}
+         \PY{n}{Plots}\PY{o}{.}\PY{n}{gr}\PY{p}{(}\PY{n}{leg}\PY{o}{=}\PY{n}{false}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} Plots.GRBackend()
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{nd} \PY{o}{=} \PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)} \PY{c}{\PYZsh{} 正規分布に従う乱数 1000点}
+         \PY{n}{Plots}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{nd}\PY{p}{)}
+\end{Verbatim}
+
+    bin を変える場合は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nbins = }\FloatTok{20}
+\end{Highlighting}
+\end{Shaded}
+
+や
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nbins = -}\FloatTok{5}\NormalTok{:}\FloatTok{0.5}\NormalTok{:}\FloatTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+などとします。分割数を指定する場合は前者で、分割幅を決めたい場合は後者を使うと便利です。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{nd}\PY{p}{,} \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)} \PY{c}{\PYZsh{} 20分割}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{nd}\PY{p}{,} \PY{n}{nbins} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{5.0}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{:}\PY{l+m+mf}{5.0}\PY{p}{)} \PY{c}{\PYZsh{} bin幅を 0.5 にし、\PYZhy{}5 〜 5 の範囲でプロット}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{nd}\PY{p}{,} \PY{n}{nbins} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{5.0}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{:}\PY{l+m+mf}{5.0}\PY{p}{,} \PY{n}{norm}\PY{o}{=}\PY{n}{true}\PY{p}{)} \PY{c}{\PYZsh{} 正規化}
+\end{Verbatim}
+
+    Plots
+を使ってヒストグラムを書けばどのような分布なのかということはわかりますが、各
+bin の中に何サンプルあるのかという具体的な数値はわかりません。
+
+具体的な数値を知りたい場合は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{fit(Histogram, nd, nbins = }\FloatTok{20}\NormalTok{)}
+    \NormalTok{or}
+    \NormalTok{fit(Histogram, nd, -}\FloatTok{5.0}\NormalTok{:}\FloatTok{0.5}\NormalTok{:}\FloatTok{5.0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+などとします。
+
+結果は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{StatsBase.Histogram\{}\DataTypeTok{Int64}\NormalTok{,}\FloatTok{1}\NormalTok{,}\DataTypeTok{Tuple}\NormalTok{\{FloatRange\{}\DataTypeTok{Float64}\NormalTok{\}\}\}}
+\NormalTok{edges:}
+  \NormalTok{-}\FloatTok{3.5}\NormalTok{:}\FloatTok{0.5}\NormalTok{:}\FloatTok{3.0}
+\NormalTok{weights: [}\FloatTok{1}\NormalTok{,}\FloatTok{2}\NormalTok{,}\FloatTok{13}\NormalTok{,}\FloatTok{46}\NormalTok{,}\FloatTok{84}\NormalTok{,}\FloatTok{149}\NormalTok{,}\FloatTok{173}\NormalTok{,}\FloatTok{206}\NormalTok{,}\FloatTok{164}\NormalTok{,}\FloatTok{83}\NormalTok{,}\FloatTok{46}\NormalTok{,}\FloatTok{27}\NormalTok{,}\FloatTok{6}\NormalTok{]}
+\NormalTok{closed: right}
+\end{Highlighting}
+\end{Shaded}
+
+のようになります。ここで edges は範囲と分割幅、weights
+が度数を表します。 各値は 変数名.edges や 変数名.weights
+をすることで抜き出すことが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{ndfreq1} \PY{o}{=} \PY{n}{fit}\PY{p}{(}\PY{n}{Histogram}\PY{p}{,} \PY{n}{nd}\PY{p}{,} \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)} \PY{c}{\PYZsh{} 分割数を指定}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} StatsBase.Histogram\{Int64,1,Tuple\{FloatRange\{Float64\}\}\}
+         edges:
+           -3.5:0.5:3.5
+         weights: [3,6,12,43,79,166,188,179,162,80,50,26,5,1]
+         closed: right
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{ndfreq2} \PY{o}{=} \PY{n}{fit}\PY{p}{(}\PY{n}{Histogram}\PY{p}{,} \PY{n}{nd}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{5.0}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{:}\PY{l+m+mf}{5.0}\PY{p}{)} \PY{c}{\PYZsh{} 幅と範囲を指定}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} StatsBase.Histogram\{Int64,1,Tuple\{FloatRange\{Float64\}\}\}
+         edges:
+           -5.0:0.5:5.0
+         weights: [0,0,0,3,6,12,43,79,166,188,179,162,80,50,26,5,1,0,0,0]
+         closed: right
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{ndfreq2}\PY{o}{.}\PY{n}{edges}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} (-5.0:0.5:5.0,)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{ndfreq2}\PY{o}{.}\PY{n}{weights}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} 20-element Array\{Int64,1\}:
+            0
+            0
+            0
+            3
+            6
+           12
+           43
+           79
+          166
+          188
+          179
+          162
+           80
+           50
+           26
+            5
+            1
+            0
+            0
+            0
+\end{Verbatim}
+        
+    求めた結果をヒストグラムと一緒に描写してみます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{histogram}\PY{p}{(}\PY{n}{nd}\PY{p}{,} \PY{n}{nbins} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{5.0}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{:}\PY{l+m+mf}{5.0}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{ndfreq2}\PY{o}{.}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{n}{ndfreq2}\PY{o}{.}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{n}{length}\PY{p}{(}\PY{n}{ndfreq2}\PY{o}{.}\PY{n}{edges}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{c}{\PYZsh{} }
+         \PY{n}{Plots}\PY{o}{.}\PY{n}{plot!}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{ndfreq2}\PY{o}{.}\PY{n}{weights}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{p}{:}\PY{n}{circle}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    最頻値 (mode) を求める場合は mode を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{p}{@}\PY{n}{show} \PY{n}{a} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{l+s+sc}{\PYZsq{}A\PYZsq{}}\PY{p}{:}\PY{l+s+sc}{\PYZsq{}C\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{StatsBase}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a = rand('A':'C',10) = ['A','B','A','B','A','A','A','A','C','C']
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 'A'
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{回帰直線}\label{ux56deux5e30ux76f4ux7dda}
+
+Julia で回帰直線の切片、傾きを求めるには linreg 関数を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{o}{?}\PY{n}{linreg}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+search: \textbf{l}\textbf{i}\textbf{n}\textbf{r}\textbf{e}\textbf{g} \textbf{l}\textbf{i}\textbf{n}ea\textbf{r}indic\textbf{e}s \textbf{L}\textbf{i}\textbf{n}eNumbe\textbf{r}Nod\textbf{e}
+
+
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}43}]:}
+    
+    \begin{verbatim}
+linreg(x, y)
+\end{verbatim}
+
+Perform simple linear regression using Ordinary Least Squares. Returns
+\texttt{a} and \texttt{b} such that \texttt{a\ +\ b*x} is the closest
+straight line to the given points \texttt{(x,\ y)}, i.e., such that the
+squared error between \texttt{y} and \texttt{a\ +\ b*x} is minimized.
+
+Examples:
+
+\begin{verbatim}
+using PyPlot
+x = 1.0:12.0
+y = [5.5, 6.3, 7.6, 8.8, 10.9, 11.79, 13.48, 15.02, 17.77, 20.81, 22.0, 22.99]
+a, b = linreg(x, y)          # Linear regression
+plot(x, y, "o")              # Plot (x, y) points
+plot(x, a + b*x)             # Plot line determined by linear regression
+\end{verbatim}
+
+See also:
+
+\texttt{\textbackslash{}}, \texttt{cov}, \texttt{std}, \texttt{mean}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c}{\PYZsh{} y = a + b * x}
+         \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{:}\PY{l+m+mf}{12.0}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{5.5}\PY{p}{,} \PY{l+m+mf}{6.3}\PY{p}{,} \PY{l+m+mf}{7.6}\PY{p}{,} \PY{l+m+mf}{8.8}\PY{p}{,} \PY{l+m+mf}{10.9}\PY{p}{,} \PY{l+m+mf}{11.79}\PY{p}{,} \PY{l+m+mf}{13.48}\PY{p}{,} \PY{l+m+mf}{15.02}\PY{p}{,} \PY{l+m+mf}{17.77}\PY{p}{,} \PY{l+m+mf}{20.81}\PY{p}{,} \PY{l+m+mf}{22.0}\PY{p}{,} \PY{l+m+mf}{22.99}\PY{p}{]}
+         \PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{linreg}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} (2.5559090909090916,1.696013986013986)
+\end{Verbatim}
+        
+    求めた結果を使ってプロットしてみます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{linetype}\PY{o}{=}\PY{p}{:}\PY{n}{scatter}\PY{p}{)}
+         \PY{n}{Plots}\PY{o}{.}\PY{n}{plot!}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{アンスコムの例}\label{ux30a2ux30f3ux30b9ux30b3ux30e0ux306eux4f8b}
+
+データ分析において可視化することがいかに重要かということを知ることの出来る良い例と\href{https://en.wikipedia.org/wiki/Anscombe\%27s_quartet}{アンスコムの例(Anscombe's
+quartet)}というものがあります。
+
+アンスコムの例は4つのデータセットからなり、それぞれのデータセットの平均や分散、回帰直線などはほとんど同じなのに、散布図にすると似ても似つかない分布になるという面白い例です。
+
+アンスコムの例のデータセットは統計ソフト R
+のデータセットから読み込むことが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k}{using} \PY{n}{RDatasets}
+         \PY{n}{anscombe} \PY{o}{=} \PY{n}{RDatasets}\PY{o}{.}\PY{n}{dataset}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{datasets}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{anscombe}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 11×8 DataFrames.DataFrame
+         │ Row │ X1 │ X2 │ X3 │ X4 │ Y1    │ Y2   │ Y3    │ Y4   │
+         ├─────┼────┼────┼────┼────┼───────┼──────┼───────┼──────┤
+         │ 1   │ 10 │ 10 │ 10 │ 8  │ 8.04  │ 9.14 │ 7.46  │ 6.58 │
+         │ 2   │ 8  │ 8  │ 8  │ 8  │ 6.95  │ 8.14 │ 6.77  │ 5.76 │
+         │ 3   │ 13 │ 13 │ 13 │ 8  │ 7.58  │ 8.74 │ 12.74 │ 7.71 │
+         │ 4   │ 9  │ 9  │ 9  │ 8  │ 8.81  │ 8.77 │ 7.11  │ 8.84 │
+         │ 5   │ 11 │ 11 │ 11 │ 8  │ 8.33  │ 9.26 │ 7.81  │ 8.47 │
+         │ 6   │ 14 │ 14 │ 14 │ 8  │ 9.96  │ 8.1  │ 8.84  │ 7.04 │
+         │ 7   │ 6  │ 6  │ 6  │ 8  │ 7.24  │ 6.13 │ 6.08  │ 5.25 │
+         │ 8   │ 4  │ 4  │ 4  │ 19 │ 4.26  │ 3.1  │ 5.39  │ 12.5 │
+         │ 9   │ 12 │ 12 │ 12 │ 8  │ 10.84 │ 9.13 │ 8.15  │ 5.56 │
+         │ 10  │ 7  │ 7  │ 7  │ 8  │ 4.82  │ 7.26 │ 6.42  │ 7.91 │
+         │ 11  │ 5  │ 5  │ 5  │ 8  │ 5.68  │ 4.74 │ 5.73  │ 6.89 │
+\end{Verbatim}
+        
+    ここで、読み込んだデータは DataFrame
+という配列に似たものです。詳細は次回。
+まずは、4つのデータをプロットしてみます。
+
+DaatFrame 型は各列を
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anscombe[:X1]}
+\end{Highlighting}
+\end{Shaded}
+
+のように列名で抜き出すことが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{X1}\PY{p}{]}\PY{p}{,} \PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{Y1}\PY{p}{]}\PY{p}{,} \PY{n}{xlims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{X2}\PY{p}{]}\PY{p}{,} \PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{Y2}\PY{p}{]}\PY{p}{,} \PY{n}{xlims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{X3}\PY{p}{]}\PY{p}{,} \PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{Y3}\PY{p}{]}\PY{p}{,} \PY{n}{xlims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{X4}\PY{p}{]}\PY{p}{,} \PY{n}{anscombe}\PY{p}{[}\PY{p}{:}\PY{n}{Y4}\PY{p}{]}\PY{p}{,} \PY{n}{xlims}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    4つの散布図は似ても似つきません。しかし、統計量は非常に近い値を取ります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c}{\PYZsh{} Introducing Julia/DataFrames \PYZhy{} Wikibooks, open books for an open world }
+         \PY{c}{\PYZsh{} https://en.wikibooks.org/wiki/Introducing\PYZus{}Julia/DataFrames\PYZsh{}Plotting\PYZus{}Anscombe.27s\PYZus{}Quartet}
+         
+         \PY{c}{\PYZsh{} print a header}
+         \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Column}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{MeanX}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{MedianX}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{StdDev X}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{MeanY}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{StdDev Y}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{Corr}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{map}\PY{p}{(}\PY{p}{(}\PY{n}{xcol}\PY{p}{,}\PY{n}{ycol}\PY{p}{)} \PY{o}{\PYZhy{}\PYZgt{}} \PY{n}{println}\PY{p}{(}
+             \PY{n}{xcol}\PY{p}{,}                   \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,}
+             \PY{n}{mean}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{n}{xcol}\PY{p}{]}\PY{p}{)}\PY{p}{,}   \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+             \PY{n}{median}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{n}{xcol}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+             \PY{n}{std}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{n}{xcol}\PY{p}{]}\PY{p}{)}\PY{p}{,}    \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+             \PY{n}{mean}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{n}{ycol}\PY{p}{]}\PY{p}{)}\PY{p}{,}   \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+             \PY{n}{std}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{n}{ycol}\PY{p}{]}\PY{p}{)}\PY{p}{,}    \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+             \PY{n}{cor}\PY{p}{(}\PY{n}{anscombe}\PY{p}{[}\PY{n}{xcol}\PY{p}{]}\PY{p}{,} \PY{n}{anscombe}\PY{p}{[}\PY{n}{ycol}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+             
+             \PY{p}{[}\PY{p}{:}\PY{n}{X1}\PY{p}{,} \PY{p}{:}\PY{n}{X2}\PY{p}{,} \PY{p}{:}\PY{n}{X3}\PY{p}{,} \PY{p}{:}\PY{n}{X4}\PY{p}{]}\PY{p}{,} 
+             \PY{p}{[}\PY{p}{:}\PY{n}{Y1}\PY{p}{,} \PY{p}{:}\PY{n}{Y2}\PY{p}{,} \PY{p}{:}\PY{n}{Y3}\PY{p}{,} \PY{p}{:}\PY{n}{Y4}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Column	MeanX	MedianX	StdDev X	MeanY			StdDev Y		Corr	
+X1	9.0	9.0	3.3166247903554	7.500909090909093	2.031568135925815	0.8164205163448398
+X2	9.0	9.0	3.3166247903554	7.500909090909091	2.0316567355016177	0.8162365060002427
+X3	9.0	9.0	3.3166247903554	7.500000000000001	2.030423601123667	0.8162867394895983
+X4	9.0	8.0	3.3166247903554	7.50090909090909	2.0305785113876023	0.8165214368885029
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{練習問題}\label{ux7df4ux7fd2ux554fux984c}
+
+    \subsection{1.}\label{section}
+
+線形方程式 \$
+
+\begin{align}
+  \left\{
+    \begin{array}{l}
+      x + 2y = -1 \\
+      3x + y = 2
+    \end{array}
+  \right.
+\end{align}
+
+\$ を解け
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{2.}\label{section}
+
+以下のコード
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{srand(}\FloatTok{1}\NormalTok{)}
+    \NormalTok{scores = rand(}\FloatTok{0}\NormalTok{:}\FloatTok{100}\NormalTok{, }\FloatTok{100}\NormalTok{, }\FloatTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+を実行し、配列 scores の 1. 各列の合計を求めよ。 1. 各列の平均を求めよ。
+1. 各列の分散を求めよ。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{3.}\label{section}
+
+次のコードを実行するとタイタニックの乗客乗員の情報を読み込むことが出来る。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{using RDatasets}
+\NormalTok{titanic = RDatasets.dataset(}\StringTok{"COUNT"}\NormalTok{, }\StringTok{"titanic"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[c]{@{}lllll@{}}
+\toprule
+& Survived & Age & Sex & Class\tabularnewline
+\midrule
+\endhead
+1 & 1 & 1 & 1 & 1\tabularnewline
+2 & 2 & 1 & 1 & 1\tabularnewline
+3 & 3 & 1 & 1 & 1\tabularnewline
+4 & 4 & 1 & 1 & 1\tabularnewline
+5 & 5 & 1 & 1 & 1\tabularnewline
+6 & 6 & 1 & 1 & 1\tabularnewline
+\bottomrule
+\end{longtable}
+
+ここで各列の数字の意味は以下のとおりである。 Survived 1=survived; 0=died
+
+Age 1=adult; 0=child
+
+Sex 1=Male; 0=female
+
+Class ticket class 1= 1st class; 2= second class; 3= third class
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  生存者と死者の数をそれぞれ調べよ。
+\item
+  男女別に生存者と死者の数をそれぞれ調べよ。
+\item
+  年齢別に生存者と死者の数をそれぞれ調べよ。
+\item
+  チケットの階級別に生存者と死者の数をそれぞれ調べよ。
+\item
+  1〜4 の結果を図示せよ。
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k}{using} \PY{n}{RDatasets}
+         \PY{n}{titanic} \PY{o}{=} \PY{n}{RDatasets}\PY{o}{.}\PY{n}{dataset}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{COUNT}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{titanic}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{head}\PY{p}{(}\PY{n}{titanic}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} 6×4 DataFrames.DataFrame
+         │ Row │ Survived │ Age │ Sex │ Class │
+         ├─────┼──────────┼─────┼─────┼───────┤
+         │ 1   │ 1        │ 1   │ 1   │ 1     │
+         │ 2   │ 1        │ 1   │ 1   │ 1     │
+         │ 3   │ 1        │ 1   │ 1   │ 1     │
+         │ 4   │ 1        │ 1   │ 1   │ 1     │
+         │ 5   │ 1        │ 1   │ 1   │ 1     │
+         │ 6   │ 1        │ 1   │ 1   │ 1     │
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{4.}\label{section}
+
+福岡市の月ごとの降水量を調べ棒グラフで図示せよ。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -1,0 +1,1821 @@
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,dvipdfmx,uplatex]{jsarticle}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{3\_type\_function\_plot}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Introduction to Data Science with
+Julia}\label{introduction-to-data-science-with-julia}
+
+\subsection{目次}\label{ux76eeux6b21}
+
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{ux30ebux30fcux30d7ux51e6ux7406ux306eux4e2dux65ad}{ループ処理の中断}
+\item
+  \protect\hyperlink{ux30ebux30fcux30d7ux51e6ux7406ux306eux4e00ux90e8ux4e2dux65ad}{ループ処理の一部中断}
+\item
+  \protect\hyperlink{ux5909ux6570ux306eux30c7ux30fcux30bfux578b}{変数のデータ型}
+\item
+  \protect\hyperlink{ux95a2ux6570}{関数}
+\item
+  \protect\hyperlink{ux95a2ux6570-uxff08ux767aux5c55ux7de8uxff09}{関数
+  （発展編）}
+\item
+  \protect\hyperlink{ux5916ux90e8ux30d1ux30c3ux30b1ux30fcux30b8ux306eux5229ux7528}{外部パッケージの利用}
+\item
+  \protect\hyperlink{ux30d7ux30edux30c3ux30c8}{プロット}
+\item
+  \protect\hyperlink{ux7df4ux7fd2ux554fux984c}{練習問題}
+\end{itemize}
+
+    \section{ループ処理の中断}\label{ux30ebux30fcux30d7ux51e6ux7406ux306eux4e2dux65ad}
+
+for 文や while
+文を使っていると、ある条件になったら繰り返し処理を止めたい場合があります。
+
+たとえば、ある数 \(n\)
+が素数かどうかを判定するプログラムを考えます。力任せにやるならば \(n\)
+を \(2 \sim \sqrt{n}\) までの整数で割って余りが \(0\)
+になるものが一つでもあったら \(n\) は素数でない、余りが \(0\)
+にならなかったら \(n\) は素数と判定することが出来ます。
+
+例として \(n=30\) とすると、30 は 2
+で割り切れるのでこれ以上の計算は不必要ですが、このプログラムを for
+文で書くと $ \lfloor \sqrt{n} \rfloor$
+の数まで計算が続いてしまいます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c}{\PYZsh{} n = 30 の場合、無駄な計算が2度入る}
+        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{30}
+        \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{2}\PY{p}{:}\PY{n}{√n}
+            \PY{k}{if} \PY{n}{n} \PY{o}{\PYZpc{}} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}
+                \PY{n}{println}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ は素数ではありません}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            \PY{k}{end}
+        \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+30 は素数ではありません
+30 は素数ではありません
+30 は素数ではありません
+
+    \end{Verbatim}
+
+    このようなときには、break を使うと for文から抜け出すことが出来ます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{30}
+        \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{2}\PY{p}{:}\PY{n}{√n}
+            \PY{k}{if} \PY{n}{n} \PY{o}{\PYZpc{}} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}
+                \PY{n}{println}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ は素数ではありません}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{break}
+            \PY{k}{end}
+        \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+30 は素数ではありません
+
+    \end{Verbatim}
+
+    break は while文でも使用することが出来ます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{while} \PY{n}{true}
+            \PY{k}{if} \PY{n}{i} \PY{o}{\PYZgt{}} \PY{l+m+mi}{5}
+                \PY{k}{break}
+            \PY{k}{end}
+            \PY{n}{println}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+            \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+1
+2
+3
+4
+5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{ループ処理の一部中断}\label{ux30ebux30fcux30d7ux51e6ux7406ux306eux4e00ux90e8ux4e2dux65ad}
+
+break
+ではループを抜けることが出来ました。次はループを抜けはしないけれど、ループの先頭に戻る
+continue を紹介します。
+
+例として、\(1 \sim 10\) の数を表示するけど、8
+だけは表示しない場合は次のように書けます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}
+            \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{8}
+                \PY{k}{continue} \PY{c}{\PYZsh{} i = 8 のときだけ for 文の先頭に戻る。そのため println は実行されない}
+            \PY{k}{end}
+            
+            \PY{n}{println}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+        \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+2
+3
+4
+5
+6
+7
+9
+10
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{変数のデータ型}\label{ux5909ux6570ux306eux30c7ux30fcux30bfux578b}
+
+前回までの講義資料中にも整数型や配列型など「型」という言葉が度々出てきましたが、今回はその「型
+(データ型) 」について詳しく勉強していきましょう。
+
+データ型とはデータの分類のことです。日常的によく使うものとして、整数型や浮動小数点型などの数値型や文字列型などあらゆるデータは一つの型に分類されます。
+
+\subsection{静的型付き言語と動的型付き言語}\label{ux9759ux7684ux578bux4ed8ux304dux8a00ux8a9eux3068ux52d5ux7684ux578bux4ed8ux304dux8a00ux8a9e}
+
+\begin{itemize}
+\item
+  静的型付き言語: C言語や Java
+  などはプログラミング言語のなかでは静的型付き言語という言語に分類されます。静的型付け言語の特徴として、変数使用時にその変数がどのような種類のデータを保存する変数なのかを宣言(型宣言)する必要が有ります。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int} \NormalTok{x }\CommentTok{// C言語での型宣言。x は整数型の変数であることを宣言}
+\end{Highlighting}
+\end{Shaded}
+
+  一度型宣言された変数は他の型のデータを保存することは出来ません。そのため上の例では
+  x に浮動小数点や文字列を入れることは出来ません。
+\item
+  動的型付き言語: C言語や Java と違い、Julia や Python, R, MATLAB
+  などでは変数の型宣言は必要ありません。変数 x
+  に整数型のデータが代入されれば x のデータ型は整数型になりますし、変数
+  x
+  に文字列が入れば文字列型になります。このように代入されたデータ型に応じて自動的に変数のデータ型が決まるような言語は動的型付き言語と呼ばれます。動的型付き言語は型宣言が必要ないので手軽に書けますが、一方で変数の型をコンピュータが判断しなくてはならないので実行スピードは静的型付き言語に比べると遅くなります。しかし、Julia
+  は JIT compile という方法を採用することによって動的型付き言語なのに
+  C言語並みの速さが出ます。
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{x} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Hello!}\PY{l+s}{\PYZdq{}} \PY{c}{\PYZsh{} 動的型付きなのでエラーは出ない}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} "Hello!"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{Julia
+でのデータ型}\label{julia-ux3067ux306eux30c7ux30fcux30bfux578b}
+
+Julia
+は動的型付き言語なのでデータ型を意識することなく書けますが意識しても書くことも出来ます。ここでは簡単な紹介程度にとどめますが、詳しく知りたい場合は\href{http://docs.julialang.org/en/stable/manual/types/}{公式ドキュメント}を読みましょう。
+
+Julia では typeof
+関数を使うことによって変数のデータ型を確認することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} Int64
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{10.0}
+        \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Float64
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    データ型を自分で明示的に指定したい場合は次のようにします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{x} \PY{o}{=} \PY{k+kt}{Int32}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{c}{\PYZsh{} Int32: 単精度整数型}
+        \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Int32
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{x} \PY{o}{=} \PY{k+kt}{Float32}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{c}{\PYZsh{} Float32: 単精度整数型}
+        \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Float32
+\end{Verbatim}
+        
+    整数は浮動小数点に変換できますが、逆は出来る場合と出来ない場合があります。10.0
+など小数部が 0
+の場合は整数に自動的に変換されますが、そうでない場合は自動的には変換されません。整数に変換したい場合は先に小数部を丸める必要があります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kt}{Int}\PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{)} \PY{c}{\PYZsh{} Int はアーキテクチャが32bit だったら Int32, 64 bit だったら Int64 になる。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 10
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kt}{Int}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{)} \PY{c}{\PYZsh{} InexactError()。整数に変換することは出来ない}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        InexactError()
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kt}{Int}\PY{p}{(}\PY{n}{round}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{} round(Int, 10.5) でも可}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 10
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kt}{Int}\PY{p}{(}\PY{n}{floor}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{} floor(Int, 10.5) でも可}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 10
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kt}{Int}\PY{p}{(}\PY{n}{ceil}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{} ceil(Int, 10.5) でも可}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 11
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kt}{Int}\PY{p}{(}\PY{n}{trunc}\PY{p}{(}\PY{l+m+mf}{10.5}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{} trunc(Int, 10.5) でも可}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 10
+\end{Verbatim}
+        
+    round, floor, ceil, trunc の違いは ?round
+などとして見るか、\href{http://docs.julialang.org/en/release-0.4/manual/mathematical-operations/\#rounding-functions}{公式ドキュメント}を参照してください。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{型を作る}\label{ux578bux3092ux4f5cux308b}
+
+今までは整数型や文字列型など既存の型を使ってきましたが、型は自分で作ることも出来ます。
+
+型を作る時の基本構文
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{type} \NormalTok{Mytype}
+        \NormalTok{body}
+    \KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+Julia では型の変数名の頭文字は大文字にするのが慣例です。
+
+例として学生を表す Student 型を作ってみましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{type}\PY{n+nc}{ }\PY{n+nc}{Student}
+             \PY{n}{statistics}\PY{p}{:}\PY{p}{:}\PY{k+kt}{Int} \PY{c}{\PYZsh{} 型を指定しないと Any 型になる}
+             \PY{n}{programming}\PY{p}{:}\PY{p}{:}\PY{k+kt}{Int}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{太郎} \PY{o}{=} \PY{n}{Student}\PY{p}{(}\PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{74}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} Student(60,74)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{typeof}\PY{p}{(}\PY{n}{太郎}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} Student
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{太郎}\PY{o}{.}\PY{n}{statistics}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 60
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{太郎}\PY{o}{.}\PY{n}{programming}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 74
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{太郎}\PY{o}{.}\PY{n}{statistics} \PY{o}{=} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 100
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{太郎} \PY{c}{\PYZsh{} 値が更新された}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} Student(100,74)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{太郎}\PY{o}{.}\PY{n}{statistics} \PY{o}{=} \PY{l+m+mf}{100.5} \PY{c}{\PYZsh{} statistics は Int 型と指定したため 浮動小数点を入れることは出来ない}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        InexactError()
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    値を更新することができない型を作るには immutable を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{immutable} \PY{n}{GoodStudent}
+             \PY{n}{statistics}\PY{p}{:}\PY{p}{:}\PY{k+kt}{Float64}
+             \PY{n}{programming}\PY{p}{:}\PY{p}{:}\PY{k+kt}{Int}
+         \PY{k}{end}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{勉} \PY{o}{=} \PY{n}{GoodStudent}\PY{p}{(}\PY{l+m+mf}{90.7}\PY{p}{,} \PY{l+m+mi}{98}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} GoodStudent(90.7,98)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{勉}\PY{o}{.}\PY{n}{statistics} \PY{o}{=} \PY{l+m+mf}{99.9}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        type GoodStudent is immutable
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{関数}\label{ux95a2ux6570}
+
+プログラムを書いていると計算式は同じだけど値だけが違うという計算が何度も出てきます。こういう時には関数を使って再利用性を上げましょう。
+
+※
+プログラミングでの関数は数学での関数とは意味が少し異なります。引数を何も入れなくても値を返すこともありますし、引数をいれても何も値を返さないこともあります。
+
+Julia では関数の定義の仕方が以下の3通りあります。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{f(x) = ...}
+        \NormalTok{or}
+        
+    \KeywordTok{function} \NormalTok{f(x)}
+        \NormalTok{body}
+    \KeywordTok{end}
+    
+        \NormalTok{or}
+    
+    \NormalTok{x -> ...}
+\end{Highlighting}
+\end{Shaded}
+
+一行で定義できるようなものは一番上の方法で、body
+が長くなりそうなら真ん中の方法で、わざわざ関数名をつけるほどでもないときは一番下の方法で定義することが多いです。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c}{\PYZsh{} 一行書きで関数を定義}
+         \PY{c}{\PYZsh{} sin を2乗するような関数}
+         \PY{n}{sin2}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{=} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} sin2 (generic function with 1 method)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sin2}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} (0.8414709848078965,0.7080734182735712,0.7080734182735712)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{sinpow2}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{2} \PY{c}{\PYZsh{} return の有無は任意。end の直上にある値が返り値となる}
+         \PY{k}{end}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} sinpow2 (generic function with 1 method)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{sinpow2}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 0.7080734182735712
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c}{\PYZsh{} 無名関数}
+         \PY{c}{\PYZsh{} 一度きりしか使わないような場合には便利です。以下の例では使う意味は全くありませんが、map 関数と組み合わせてよく使います。}
+         \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}\PYZgt{}} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 0.7080734182735712
+\end{Verbatim}
+        
+    引数には数字だけでなく文字列や配列、関数など何でも入れることが出来ます。引数の数は複数個でも構いません。同様に返り値もなんでも大丈夫です。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c}{\PYZsh{} 数字 a, b を引数にとり、a + b, a \PYZhy{} b を返すような関数}
+         \PY{c}{\PYZsh{} 一行書きすると plusminus(a, b) = a + b, a \PYZhy{} b}
+         
+         \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{plusminus}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+             \PY{k}{return} \PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{p}{,} \PY{n}{a} \PY{o}{\PYZhy{}} \PY{n}{b}
+         \PY{k}{end}
+         \PY{n}{plusminus}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} (15,5)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c}{\PYZsh{} フィボナッチ数列の第 n 項を返す関数}
+         \PY{c}{\PYZsh{} fib(0) = 0, fib(1) = 1, fib(n) = fib(n\PYZhy{}1) + fib(n\PYZhy{}2)}
+         \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{fib}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+             \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2}
+                 \PY{k}{return} \PY{n}{n}
+             \PY{k}{end}
+             
+             \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{iter} \PY{k}{in} \PY{l+m+mi}{2}\PY{p}{:}\PY{n}{n}
+                 \PY{n}{c} \PY{o}{=} \PY{n}{a} \PY{o}{+} \PY{n}{b}
+                 \PY{n}{a} \PY{o}{=} \PY{n}{b}
+                 \PY{n}{b} \PY{o}{=} \PY{n}{c}
+             \PY{k}{end}
+             
+             \PY{k}{return} \PY{n}{c}
+         \PY{k}{end}
+         \PY{n}{fib}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 55
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c}{\PYZsh{} 引数を取らない関数}
+         \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{hoge}\PY{p}{(}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{hoge}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{end}
+         \PY{n}{hoge}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+hoge
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c}{\PYZsh{} 引数に関数 f と数字 x をとり、f(x)\PYZca{}2 を返すような関数}
+         \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{pow2fn}\PY{p}{(}\PY{n}{func}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+             \PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{2}
+         \PY{k}{end}
+         \PY{n}{pow2fn}\PY{p}{(}\PY{n}{sin}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} (0.7080734182735712,0.7080734182735712)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{オプション引数}\label{ux30aaux30d7ux30b7ux30e7ux30f3ux5f15ux6570}
+
+オプション引数を使うと、デフォルトの値を設定が出来ます。
+
+オプション引数
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{function} \NormalTok{myfunc(x, y, a=}\FloatTok{1}\NormalTok{, b=}\FloatTok{2}\NormalTok{, ...) }\CommentTok{# a, b, ...がオプション引数}
+        \NormalTok{body}
+    \KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{sin\PYZus{}mul\PYZus{}a}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)} \PY{o}{=} \PY{n}{a} \PY{o}{*} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{c}{\PYZsh{} オプション引数は普通の引数の後に書く}
+         \PY{n}{sin\PYZus{}mul\PYZus{}a}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} (2.5244129544236893,2.5244129544236893)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{sin\PYZus{}mul\PYZus{}a}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} 5.048825908847379
+\end{Verbatim}
+        
+    オプション引数は複数入れることも出来ます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{foo}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{b}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{x = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{y = }\PY{l+s+si}{\PYZdl{}y}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{a}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{b = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} foo (generic function with 3 methods)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{foo}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = 1
+y = 3
+a = 1
+b = 3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{foo}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = 1
+y = 3
+a = 10
+b = 3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{foo}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = 1
+y = 3
+a = 10
+b = 20
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{キーワード引数}\label{ux30adux30fcux30efux30fcux30c9ux5f15ux6570}
+
+オプション引数はデフォルトの値を設定することができるので便利ですが、数が多くなると大変です。上の例というと
+b の値だけデフォルトの値とは違う値を使いたい場合でも a
+の値を入力する必要が有ります。キーワード引数を使うと b = 10
+などと明示的に指定することによって b の値だけを変えることが出来ます。
+キーワード引数を使う場合、; の後にキーワード引数にしたいものを書きます。
+
+キーワード引数
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{function} \NormalTok{myfunc(x, y, ..., a=}\FloatTok{1}\NormalTok{, b=}\FloatTok{2}\NormalTok{...; c =}\FloatTok{3}\NormalTok{, d=}\FloatTok{4}\NormalTok{, ...) }\CommentTok{# x, yは普通の引数。a, b はオプション引数。c, dがキーワード引数。}
+        \NormalTok{body}
+    \KeywordTok{end}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{piyo}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{b}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{;} \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{x = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{y = }\PY{l+s+si}{\PYZdl{}y}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{a = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{a}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{b = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{c = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{d = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{d}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} piyo (generic function with 3 methods)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{piyo}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = 100
+y = 200
+a = 1
+b = 2
+c = 3
+d = 4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{piyo}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = 100
+y = 200
+a = 1
+b = 2
+c = 300
+d = 4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{piyo}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)} \PY{c}{\PYZsh{} キーワード引数の順序は任意}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = 100
+y = 200
+a = 1
+b = 2
+c = 100
+d = 200
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{piyo}\PY{p}{(}\PY{n}{d}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{3000}\PY{p}{,} \PY{l+m+mi}{4000}\PY{p}{)} \PY{c}{\PYZsh{} キーワード引数がついていない部分から順に x, y, a, b に割り当てられる。}
+                                                    \PY{c}{\PYZsh{} ただしこのような書き方は可読性が低くなるので使わないようにしましょう。}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = 1000
+y = 2000
+a = 3000
+b = 4000
+c = 300
+d = 200
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{関数 （発展編）}\label{ux95a2ux6570-ux767aux5c55ux7de8}
+
+以下の内容は余裕のある人だけ読んでください。
+
+    \subsubsection{再帰処理}\label{ux518dux5e30ux51e6ux7406}
+
+関数定義時に返り値として自分自身を返す関数も作ることが出来ます。これを使うと上のフィボナッチ数列がよりスマートに書けます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k}{function}\PY{n+nf}{ }\PY{n+nf}{fib\PYZus{}rec}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+             \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2} \PY{c}{\PYZsh{} 終了条件。これがないと無限ループに陥る}
+                 \PY{k}{return} \PY{n}{n}
+             \PY{k}{else}
+                 \PY{k}{return} \PY{n}{fib\PYZus{}rec}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{n}{fib\PYZus{}rec}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{end}
+         \PY{k}{end}
+         \PY{n}{fib\PYZus{}rec}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 55
+\end{Verbatim}
+        
+    三項演算子と組み合わせると次のように一行で定義できます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{fib\PYZus{}rec2}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{o}{=} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2} \PY{o}{?} \PY{n}{n} \PY{p}{:} \PY{n}{fib\PYZus{}rec2}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{n}{fib\PYZus{}rec2}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{fib\PYZus{}rec2}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} 55
+\end{Verbatim}
+        
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsubsection{無名関数}\label{ux7121ux540dux95a2ux6570}
+
+sin
+2乗の例では無名関数の有り難みは全くありませんでしたが、使うと嬉しい例を少し紹介します。
+
+    次のように要素が Tuple であるような配列があったとします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{AA} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)} \PY{k}{in} \PY{n}{zip}\PY{p}{(}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} 10-element Array\{Tuple\{Int64,Int64\},1\}:
+          (39,98)
+          (51,11)
+          (31,44)
+          (91,5) 
+          (78,5) 
+          (5,18) 
+          (69,8) 
+          (52,71)
+          (12,42)
+          (39,10)
+\end{Verbatim}
+        
+    この配列から Tuple
+の第1成分を要素とする配列を作りたいと思った時、愚直にやると次のような感じでしょう
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{tmparray} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{k+kt}{Int}\PY{p}{,} \PY{n}{length}\PY{p}{(}\PY{n}{AA}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}
+             \PY{n}{tmparray}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{AA}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{k}{end}
+         \PY{n}{tmparray}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} 10-element Array\{Int64,1\}:
+          39
+          51
+          31
+          91
+          78
+           5
+          69
+          52
+          12
+          39
+\end{Verbatim}
+        
+    なかなか野暮ったいです。ですが、無名関数と map
+を使うと以下のようになります。
+
+map の使い方
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{map(func, collection)}
+\end{Highlighting}
+\end{Shaded}
+
+map 関数は collecttion (配列やTupleなど) の各要素に関数を作用させる
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{map}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}\PYZgt{}} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{AA}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} 10-element Array\{Int64,1\}:
+          39
+          51
+          31
+          91
+          78
+           5
+          69
+          52
+          12
+          39
+\end{Verbatim}
+        
+    だいぶスマートになったのではないでしょうか？
+
+※今の場合なら内包表記でも書けますけどね
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{k}{in} \PY{n}{AA}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} 10-element Array\{Int64,1\}:
+          39
+          51
+          31
+          91
+          78
+           5
+          69
+          52
+          12
+          39
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    次の例として要素数 100 の正規分布に従った乱数の配列を 10
+個作り、それをまた別の配列に保存します。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{k}{in} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]} \PY{c}{\PYZsh{} このコマンドの意味がわからなければ内包表記 (comprehension) で検索}
+                                        \PY{c}{\PYZsh{} Array\PYZob{}Array\PYZob{}Float64,1\PYZcb{},1\PYZcb{}: A は配列でその要素も配列}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} 10-element Array\{Array\{Float64,1\},1\}:
+          [-0.0979266,-0.0923629,-0.74266,-0.153902,1.59858,-0.18026,-0.328829,-0.227913,-0.466459,-0.221369  …  0.0356644,0.0267914,-1.65118,-1.60994,-0.131936,-1.4973,-2.01449,0.11976,1.67899,-0.470529]
+          [0.340565,0.407596,-0.964006,0.32134,-0.810267,1.05251,-0.242473,-0.476823,-0.930311,-0.335376  …  0.436516,0.626162,0.890003,-0.951557,-0.346844,-0.625091,-0.861058,-1.1537,0.331484,0.404399]  
+          [1.15775,-1.09497,0.562454,1.74505,0.0115943,0.251306,-1.93008,0.37916,-1.0569,-0.980061  …  0.174071,-0.0233513,-0.24817,0.0328129,-0.370793,1.24844,-0.298916,1.03848,-0.0538676,0.723292]      
+          [0.309599,1.43712,-1.27951,-1.43293,0.208912,-0.738032,1.56883,-2.37002,1.26399,-1.28499  …  0.341463,-0.0180091,-0.654025,-0.215693,0.242108,-0.279113,0.844773,0.831682,0.269,0.314314]         
+          [-0.310866,0.732228,-0.366928,-1.11012,-0.386008,1.02974,0.38998,0.94941,0.138061,1.15447  …  -0.0421051,-0.14237,-0.43746,-0.940562,-0.411555,-1.81165,0.839884,-0.229378,0.159625,-0.709719]    
+          [0.251238,0.716822,-0.156129,2.62192,0.266124,0.270463,-0.464465,-0.448382,-1.13895,0.23278  …  0.533809,0.945016,1.08528,0.104855,-0.07022,-1.03088,1.98542,-0.723118,-1.08858,0.459101]         
+          [-1.31056,0.362412,-1.24981,-0.385879,0.867861,0.032985,0.704788,-0.321812,-0.165161,-0.39603  …  -1.16267,0.992107,-1.3917,0.286331,-1.64872,0.292677,0.856983,-0.569739,-0.558129,-0.0962802]   
+          [0.0926006,-0.307484,-0.454482,-2.18101,1.66283,-1.56891,0.166988,-0.481405,0.988266,0.725564  …  -1.49111,-1.24285,0.704423,-0.0658186,-0.254551,-0.567314,1.07359,0.32229,-0.368202,-1.03353]   
+          [-0.75438,-1.24571,-1.31047,-1.33556,0.788849,0.426939,-1.02286,0.242872,-1.35828,-0.00566716  …  0.214184,0.0295546,2.45893,0.364747,0.838102,2.14017,-0.327814,-2.3306,0.970312,-0.718146]      
+          [0.0121549,-0.846848,0.240033,-1.58049,-0.915652,0.823127,-0.252873,-0.292357,-1.50797,-0.0266682  …  1.35511,-1.09738,-0.195337,0.597396,-0.693126,-0.166469,0.974507,0.158572,0.464222,0.669095]
+\end{Verbatim}
+        
+    配列に var 関数を作用させると分散が計算できます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{var}\PY{p}{(}\PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} 0.7159354676505525
+\end{Verbatim}
+        
+    しかし、配列 A に作用させると \ldots{}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{var}\PY{p}{(}\PY{n}{A}\PY{p}{)} \PY{c}{\PYZsh{} エラーが出る}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        MethodError: no method matching zero(::Type\{Array\{Float64,1\}\})
+    Closest candidates are:
+      zero(::Type\{Base.LibGit2.Oid\}) at libgit2/oid.jl:88
+      zero(::Type\{Base.Pkg.Resolve.VersionWeights.VWPreBuildItem\}) at pkg/resolve/versionweight.jl:80
+      zero(::Type\{Base.Pkg.Resolve.VersionWeights.VWPreBuild\}) at pkg/resolve/versionweight.jl:120
+      {\ldots}
+
+        
+
+         in \#var\#971(::Bool, ::Void, ::Function, ::Array\{Array\{Float64,1\},1\}) at ./statistics.jl:176
+
+         in var(::Array\{Array\{Float64,1\},1\}) at ./statistics.jl:176
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    配列 A{[}1{]} 〜 A{[}10{]} までそれぞれの分散を知りたい場合は、map
+関数を使う。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{map}\PY{p}{(}\PY{n}{var}\PY{p}{,} \PY{n}{A}\PY{p}{)} \PY{c}{\PYZsh{} [var(A[1]), var(A[2]), ..., var(A[10])] と等価}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} 10-element Array\{Float64,1\}:
+          0.715935
+          0.720194
+          0.821421
+          1.02328 
+          0.889928
+          0.789865
+          0.933594
+          0.953192
+          1.22336 
+          0.871913
+\end{Verbatim}
+        
+    Julia の var
+関数は標準で不偏分散を計算しますが、補正のない分散を計算する場合にはキーワード引数で
+corrected=false とする必要があります。しかし、map
+関数ではキーワード引数を取ることが出来ません。このようなとき、わざわざ次のように
+corrected=false にした関数を作り map
+関数を利用するのは不便です。なにより、この場限りでしか使わない関数に名前をつけるのも面倒です。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{var_no_correction(x) = var(x, corrected=false)}
+    \NormalTok{map(var_no_correction, A)}
+\end{Highlighting}
+\end{Shaded}
+
+このような時に無名関数を使えば、わざわざ関数名を考えずに済みます。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{map(x -> var(x, corrected=false), A)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{var\PYZus{}no\PYZus{}correction}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{=} \PY{n}{var}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{corrected}\PY{o}{=}\PY{n}{false}\PY{p}{)}
+         \PY{n}{map}\PY{p}{(}\PY{n}{var\PYZus{}no\PYZus{}correction}\PY{p}{,} \PY{n}{A}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} 10-element Array\{Float64,1\}:
+          0.708776
+          0.712992
+          0.813206
+          1.01304 
+          0.881029
+          0.781966
+          0.924258
+          0.94366 
+          1.21112 
+          0.863194
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{map}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}\PYZgt{}} \PY{n}{var}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{corrected}\PY{o}{=}\PY{n}{false}\PY{p}{)}\PY{p}{,} \PY{n}{A}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} 10-element Array\{Float64,1\}:
+          0.708776
+          0.712992
+          0.813206
+          1.01304 
+          0.881029
+          0.781966
+          0.924258
+          0.94366 
+          1.21112 
+          0.863194
+\end{Verbatim}
+        
+    まぁ、分散の場合ならば map を使わずとも var.(A)
+とすれば計算できるのですけど。 この 関数名.(arg\ldots{})
+という使い方は配列演算の項目でまた詳しく説明します。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{var}\PY{o}{.}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{corrected}\PY{o}{=}\PY{n}{false}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} 10-element Array\{Float64,1\}:
+          0.708776
+          0.712992
+          0.813206
+          1.01304 
+          0.881029
+          0.781966
+          0.924258
+          0.94366 
+          1.21112 
+          0.863194
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    一応、無名関数と map
+関数の説明はしましたが、軽くプログラミングをする程度ならこの2つの関数は知らなくても大丈夫です。
+ただし、スピードを求めて並列化をする場合、map の並列版の pmap
+という関数があるので、後々並列化に挑戦したいなら覚えておいて損はないです。
+しかし、並列化はこの講義のレベルを遥かに超えるので、詳しく知りたい人は
+Julia の公式ドキュメントを読んでください。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsubsection{多重ディスパッチ}\label{ux591aux91cdux30c7ux30a3ux30b9ux30d1ux30c3ux30c1}
+
+Julia
+では関数の引数の型を明示的に書く必要はありませんが、明示的に指定することも出来ます。明示的に指定することで引数のデータ型によって関数の挙動を変えることができたり、また、実行スピードの向上につながります。この時の型には自分で作ったものも指定することが出来ます。
+
+例として、まずは引数に整数型をとる関数を定義します。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{n}{x}\PY{p}{:}\PY{p}{:}\PY{k+kt}{Int}\PY{p}{)} \PY{o}{=} \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{整数です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} print\_num\_type (generic function with 1 method)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{c}{\PYZsh{} 整数値を入れると動作します}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+整数です
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{l+m+mf}{10.9}\PY{p}{)} \PY{c}{\PYZsh{} 整数以外のものを入れるとエラーが出ます}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        MethodError: no method matching print\_num\_type(::Float64)
+    Closest candidates are:
+      print\_num\_type(::Int64) at In[60]:1
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Hello}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{} 整数以外のものを入れるとエラーが出ます}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        MethodError: no method matching print\_num\_type(::String)
+    Closest candidates are:
+      print\_num\_type(::Int64) at In[60]:1
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    次に、同じ関数名で浮動小数点を引数にとるように定義します
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{n}{x}\PY{p}{:}\PY{p}{:}\PY{k+kt}{Float64}\PY{p}{)} \PY{o}{=} \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{浮動小数点です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} print\_num\_type (generic function with 2 methods)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{l+m+mf}{10.9}\PY{p}{)} \PY{c}{\PYZsh{} 先程はエラーが出ましたが、今回はエラーが出ません。}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+浮動小数点です
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)} \PY{c}{\PYZsh{} 整数を入れるとエラーは出ず、前と同じ動作になります}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+整数です
+
+    \end{Verbatim}
+
+    Julia
+では関数名が同じでも引数の型を変えて定義すれば関数は上書きされません。
+
+関数定義時の出力結果を見ると始めの定義時は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{print_num_type (generic }\KeywordTok{function} \NormalTok{with }\FloatTok{1} \NormalTok{methods)}
+\end{Highlighting}
+\end{Shaded}
+
+でしたが、2回目では
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{print_num_type (generic }\KeywordTok{function} \NormalTok{with }\FloatTok{2} \NormalTok{method)}
+\end{Highlighting}
+\end{Shaded}
+
+と 2 methods になっています。これは引数の型によって 2
+通りの挙動をすること示しています。
+
+現在、どのような引数に対して定義されているのか確認するには methods
+関数を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{methods}\PY{p}{(}\PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{)} \PY{c}{\PYZsh{} これより Float64, Int64 で定義されていることがわかります。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} \# 2 methods for generic function "print\_num\_type":
+         print\_num\_type(x::Float64) at In[64]:1
+         print\_num\_type(x::Int64) at In[60]:1
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    現在の状態だと引数に 倍精度整数 Int64
+の数字を入れることは出来ますが、単精度整数 Int32
+などの他の整数は入れることが出来ません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{k+kt}{Int32}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{} エラーが出る}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        MethodError: no method matching print\_num\_type(::Int32)
+    Closest candidates are:
+      print\_num\_type(::Float64) at In[64]:1
+      print\_num\_type(::Int64) at In[60]:1
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    全ての整数に対して動作するようにするためにはより抽象的な型(abstract
+type)である Integer 型を使います。今まで使ってきた Int32, Int64
+などは具体的な型 (concrete type) と呼ばれ、 Int32, Int64 は 抽象的な型
+Integer 型の subtype です。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k+kt}{Int32} \PY{o}{\PYZlt{}:} \PY{n}{Integer} \PY{c}{\PYZsh{} subtype かどうかは Type1 \PYZlt{}: Type2 として調べることが出来ます。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:} true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{n}{x}\PY{p}{:}\PY{p}{:}\PY{n}{Integer}\PY{p}{)} \PY{o}{=} \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{整数です}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} print\_num\_type (generic function with 3 methods)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{print\PYZus{}num\PYZus{}type}\PY{p}{(}\PY{k+kt}{Int32}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+整数です
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{外部パッケージの利用}\label{ux5916ux90e8ux30d1ux30c3ux30b1ux30fcux30b8ux306eux5229ux7528}
+
+Julia
+では標準機能として平均、分散の計算やフーリエ変換などが出来ますが、外部パッケージを利用することさらに様々なことが出来るようになります。
+
+パッケージを追加するには
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{Pkg.add(}\StringTok{"パッケージ名"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+とします。導入できるパッケージは Julia
+の\href{http://pkg.julialang.org/}{公式ページ}より確認することが出来ます。
+
+パッケージのアップデートは
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{Pkg.update()}
+\end{Highlighting}
+\end{Shaded}
+
+とします。これをすることで、今までインストールしたパッケージ全てをアップデートすることが出来ます。
+
+今回は外部パッケージの一例としてプロット関連のパッケージの導入から簡単な使い方を紹介します。
+
+\subsection{プロット}\label{ux30d7ux30edux30c3ux30c8}
+
+プロット関連の有名なパッケージとしては次のようなものが有ります。 -
+\href{https://github.com/JuliaPy/PyPlot.jl}{PyPlot}: Python の
+matplotlib を使用している - \href{https://github.com/jheinen/GR.jl}{GR}
+- \href{https://plot.ly/}{Plotly}
+
+これらのパッケージは作図するまでの文法がそれぞれ違うため、どれか一つの文法を覚えたとしても他の作図パッケージでは使えません。
+ですが、\href{https://github.com/JuliaPlots/Plots.jl}{Plots}
+というパッケージを使うと、文法は変えずにバッグエンドを変えることで、ある時は
+PyPlot で作図し、あるときは GR で作図しと使い分けることが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c}{\PYZsh{} パッケージの追加}
+         \PY{c}{\PYZsh{} ローカルで Julia 使っている人はコメントを外してコードを実行する。}
+         \PY{c}{\PYZsh{} JuliaBox を使っている人は標準で入っているため実行する必要はない。}
+         
+         \PY{c}{\PYZsh{} Pkg.add(\PYZdq{}Plots\PYZdq{}); Pkg.add(\PYZdq{}GR\PYZdq{})}
+\end{Verbatim}
+
+    \subsubsection{パッケージの読み込み}\label{ux30d1ux30c3ux30b1ux30fcux30b8ux306eux8aadux307fux8fbcux307f}
+
+追加したパッケージを利用するには
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import} \NormalTok{パッケージ名}
+
+\NormalTok{or}
+
+\NormalTok{using パッケージ名}
+\end{Highlighting}
+\end{Shaded}
+
+とします。これで読み込んだパッケージの関数が使えるようになります。
+
+import と using の違いは、import
+で読み込んだ場合はパッケージの関数を使うときに
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{パッケージ名.関数名(arg...)}
+\end{Highlighting}
+\end{Shaded}
+
+と " パッケージ名. " を入れて使用しますが、using で読み込んだ場合は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{関数名(arg...)}
+\end{Highlighting}
+\end{Shaded}
+
+と関数名だけで読み込んだパッケージの関数を使うことが出来ます。(import
+同様パッケージ名を入れても使えます) 一見すると import など使わずに常に
+using
+を使うのが便利そうです。しかし、複数のパッケージを同時に読み込むと関数名が衝突することが有ります。
+例えば、PyPlot と GR にはどちらにも plot
+という関数があるので、どちらのパッケージも using を使って読み込むと plot
+がどちらのパッケージに依存した関数なのかわからなくなってしまいます。import
+を使えばパッケージ名を指定するのでこのような関数の衝突はなくなります。
+
+今後、講義資料中ではどの関数がどのパッケージに依存する関数なのか明白にするために、パッケージ名.関数名(arg\ldots{})
+と書きますが、みなさんの日頃のプログラミングではこうする必要はありません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{k}{import} \PY{n}{Plots}
+         \PY{n}{Plots}\PY{o}{.}\PY{n}{gr}\PY{p}{(}\PY{p}{)} \PY{c}{\PYZsh{} バックエンドを GR に指定. PyPlot にしたい場合は pyplot(), plotly を使いたい場合は plotly() とする。}
+         \PY{c}{\PYZsh{} Plots.pyplot()}
+         \PY{c}{\PYZsh{} Plots.plotly()}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} Plots.GRBackend()
+\end{Verbatim}
+        
+    まずは sin 関数を描写してみましょう。
+
+Plots.jl のプロットの基本文法。 ある関数を \(a < x < b\)
+の範囲でプロットする場合
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{plot(}\KeywordTok{function}\NormalTok{, a, b)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{Plots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sin}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{n}{π}\PY{p}{,} \PY{l+m+mi}{3}\PY{n}{π}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    関数には自分で定義した関数も使用することが出来ます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{sin3}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{=} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{3} \PY{c}{\PYZsh{} sin の3乗}
+         \PY{n}{Plots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sin3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{n}{π}\PY{p}{,} \PY{l+m+mi}{4}\PY{n}{π}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c}{\PYZsh{} 無名関数はプロットするときにも便利です}
+         \PY{n}{Plots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}\PYZgt{}} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{n}{π}\PY{p}{,} \PY{l+m+mi}{4}\PY{n}{π}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{練習問題}\label{ux7df4ux7fd2ux554fux984c}
+
+    \subsection{1.}\label{section}
+
+3つの数 a, b, c を入力すると平均値を返すような関数を作成せよ
+
+出力例
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avg3(}\FloatTok{10}\NormalTok{, }\FloatTok{20}\NormalTok{, }\FloatTok{30}\NormalTok{) }\CommentTok{# -> 20.0}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{2.}\label{section}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = [}\FloatTok{74}\NormalTok{,}\FloatTok{51}\NormalTok{,}\FloatTok{98}\NormalTok{,}\FloatTok{27}\NormalTok{,}\FloatTok{29}\NormalTok{,}\FloatTok{2}\NormalTok{,}\FloatTok{40}\NormalTok{,}\FloatTok{75}\NormalTok{,}\FloatTok{75}\NormalTok{,}\FloatTok{12}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+のような配列を引数にとり、要素の平均を出力する関数 mymean を作成せよ.
+(mean 関数は使ってはいけない)
+
+出力例
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mymean(x) }\CommentTok{#-> 48.3}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{3.}\label{section}
+
+半径 r の球の表面積と体積を計算する関数を作成せよ
+
+出力例
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{areavol(}\FloatTok{4}\NormalTok{) }\CommentTok{#-> (201.06192982974676,268.082573106329)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{4.}\label{section}
+
+西暦を入力すると、うるう年かどうか判定する関数を作成せよ
+
+うるう年 - 西暦年が4で割り切れる年は閏年。 -
+ただし、西暦年が100で割り切れる年は平年。 -
+ただし、西暦年が400で割り切れる年は閏年。
+
+Wikipedia より
+
+出力例
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{leap(}\FloatTok{2000}\NormalTok{)}
+\FloatTok{2000} \NormalTok{年はうるう年です}
+
+\NormalTok{leap(}\FloatTok{2100}\NormalTok{)}
+\FloatTok{2100} \NormalTok{年はうるう年ではありません}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{5.}\label{section}
+
+\(y = x^2 + 3\) を \(-3 < x < 3\)の範囲で図示せよ
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{6.}\label{section}
+
+福岡市の平均気温を調べ、横軸を月、縦軸を平均気温として図示せよ
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

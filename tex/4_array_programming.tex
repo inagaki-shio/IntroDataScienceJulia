@@ -1,0 +1,1419 @@
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,dvipdfmx,uplatex]{jsarticle}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{4\_array\_programming}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Introduction to Data Science with
+Julia}\label{introduction-to-data-science-with-julia}
+
+\section{目次}\label{ux76eeux6b21}
+
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{ux914dux5217ux64cdux4f5c}{配列操作}
+\item
+  \protect\hyperlink{ux8981ux7d20ux3092ux629cux304dux51faux3059}{要素を抜き出す}
+\item
+  \protect\hyperlink{ux5024ux306eux66f4ux65b0}{値の更新}
+\item
+  \protect\hyperlink{ux914dux5217ux6f14ux7b97}{配列演算}
+\item
+  \protect\hyperlink{ux8981ux7d20ux306eux6bd4ux8f03}{要素の比較}
+\item
+  \protect\hyperlink{ux914dux5217ux3092ux6271ux3046ux4e0aux3067ux306eux6ce8ux610f}{配列を扱う上での注意}
+\item
+  \protect\hyperlink{ux7df4ux7fd2ux554fux984c}{練習問題}
+\end{itemize}
+
+    \section{配列操作}\label{ux914dux5217ux64cdux4f5c}
+
+今回は配列操作について学びます。
+データ分析をする際には配列単位で操作をすることが多くなるのでしっかりと身につけてください。
+
+まず初めに復習として、配列は {[} {]}
+で配列の要素にしたいものを囲んで作るのでした。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} 5-element Array\{Int64,1\}:
+         1
+         2
+         3
+         4
+         5
+\end{Verbatim}
+        
+    今度は、2次元配列 (行列)
+を作ってみます。2次元配列を作るには各行の要素を\textbf{スペース区切り}で書き、行の終わりをセミコロン
+; で区切ります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{p}{[}\PY{l+m+mi}{1} \PY{l+m+mi}{2} \PY{l+m+mi}{3}\PY{p}{;} \PY{l+m+mi}{4} \PY{l+m+mi}{5} \PY{l+m+mi}{6} \PY{p}{;} \PY{l+m+mi}{7} \PY{l+m+mi}{8} \PY{l+m+mi}{9}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} 3×3 Array\{Int64,2\}:
+         1  2  3
+         4  5  6
+         7  8  9
+\end{Verbatim}
+        
+    各行の区切りは改行でも大丈夫です。改行を使って書くとより行列に近い形に書けるので見やすくなります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{p}{[}\PY{l+m+mi}{1} \PY{l+m+mi}{2} \PY{l+m+mi}{3}
+        \PY{l+m+mi}{4} \PY{l+m+mi}{5} \PY{l+m+mi}{6}
+        \PY{l+m+mi}{7} \PY{l+m+mi}{8} \PY{l+m+mi}{9}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 3×3 Array\{Int64,2\}:
+         1  2  3
+         4  5  6
+         7  8  9
+\end{Verbatim}
+        
+    要素を 0 に初期化した \(M \times N\) 行列を作るときは zeros
+を使うと便利です。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{5}
+        \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{3}
+        \PY{n}{zeros}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{N}\PY{p}{)} \PY{c}{\PYZsh{} zeros(Int, M, N) とすると Int 型になる}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 5×3 Array\{Float64,2\}:
+         0.0  0.0  0.0
+         0.0  0.0  0.0
+         0.0  0.0  0.0
+         0.0  0.0  0.0
+         0.0  0.0  0.0
+\end{Verbatim}
+        
+    全要素を 1 に初期化する場合は ones を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{ones}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{N}\PY{p}{)} \PY{c}{\PYZsh{} ones(Int, M, N) とすると Int 型になる}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 5×3 Array\{Float64,2\}:
+         1.0  1.0  1.0
+         1.0  1.0  1.0
+         1.0  1.0  1.0
+         1.0  1.0  1.0
+         1.0  1.0  1.0
+\end{Verbatim}
+        
+    任意の数字や文字列で初期化した配列を作るには fill を使います。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{fill}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 5×2 Array\{Int64,2\}:
+         3  3
+         3  3
+         3  3
+         3  3
+         3  3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{fill}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{hoge}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 5×2 Array\{String,2\}:
+         "hoge"  "hoge"
+         "hoge"  "hoge"
+         "hoge"  "hoge"
+         "hoge"  "hoge"
+         "hoge"  "hoge"
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    複数の配列を {[} {]} で囲むことで配列を結合することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}
+        \PY{p}{[}\PY{n}{x} \PY{n}{y}\PY{p}{]} \PY{c}{\PYZsh{} 縦ベクトル２つを結合。hcat 関数を使っても同様のことが出来る}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 3×2 Array\{Int64,2\}:
+         1  4
+         2  5
+         3  6
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{l+m+mi}{2} \PY{l+m+mi}{3}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4} \PY{l+m+mi}{5} \PY{l+m+mi}{6}\PY{p}{]}
+        \PY{p}{[}\PY{n}{x} \PY{n}{y}\PY{p}{]} \PY{c}{\PYZsh{} 横ベクトル２つを結合}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 1×6 Array\{Int64,2\}:
+         1  2  3  4  5  6
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}
+         \PY{p}{[}\PY{n}{x}\PY{p}{;} \PY{n}{y}\PY{p}{]} \PY{c}{\PYZsh{} vcat 関数を使っても同様のことが出来る}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 6-element Array\{Int64,1\}:
+          1
+          2
+          3
+          4
+          5
+          6
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    push! を使うと一次元配列の末尾に要素を追加することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}
+         \PY{n}{push!}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{c}{\PYZsh{} push!(x, 10, 11) などとすれば複数の要素を一度についかできる}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = [1,2,3]
+x = [1,2,3,10]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 4-element Array\{Int64,1\}:
+           1
+           2
+           3
+          10
+\end{Verbatim}
+        
+    push! とは逆に末尾の要素を取り出すには pop! を使います
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{p}{@}\PY{n}{show} \PY{n}{x}
+         \PY{n}{pop!}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = [1,2,3,10]
+x = [1,2,3]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 3-element Array\{Int64,1\}:
+          1
+          2
+          3
+\end{Verbatim}
+        
+    unshift! を使うと先頭に要素を追加することが出来ます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{unshift!}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)} \PY{c}{\PYZsh{} 複数の要素を一度に追加も出来る}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 4-element Array\{Int64,1\}:
+          5
+          1
+          2
+          3
+\end{Verbatim}
+        
+    shift! を使うと先頭に要素を取り出すことが出来ます
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{p}{@}\PY{n}{show} \PY{n}{x}
+         \PY{n}{shift!}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x = [5,1,2,3]
+x = [1,2,3]
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 3-element Array\{Int64,1\}:
+          1
+          2
+          3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    2次元配列の \((i,j)\) 成分へのアクセスは \(A[i,j]\) のように指定します。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{l+m+mi}{2} \PY{l+m+mi}{3}
+             \PY{l+m+mi}{4} \PY{l+m+mi}{5} \PY{l+m+mi}{6}
+             \PY{l+m+mi}{7} \PY{l+m+mi}{8} \PY{l+m+mi}{9}\PY{p}{]}
+         \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 3
+\end{Verbatim}
+        
+    3次元以上は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \DataTypeTok{Array}\NormalTok{\{}\DataTypeTok{Any}\NormalTok{\}(}\FloatTok{3}\NormalTok{,}\FloatTok{3}\NormalTok{,}\FloatTok{3}\NormalTok{) }\CommentTok{# 3 x 3 x 3 配列}
+\end{Highlighting}
+\end{Shaded}
+
+と雛形を作ってから、後で値を代入する必要が有ります。ただし、3次元以上の配列はあまり使うことはないでしょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{X} \PY{o}{=} \PY{n}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Int}\PY{p}{\PYZcb{}}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)} \PY{c}{\PYZsh{} 初期値はコンピュータが勝手に決める}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 3×3×3 Array\{Int64,3\}:
+         [:, :, 1] =
+          140052001667728  140052001886512  140052001887792
+          140052001667824  140052001887952  140052001895024
+          140052001667888  140052001887312  140052001895088
+         
+         [:, :, 2] =
+          140052001896720  140052001896912  140052002092656
+          140052001896784  140052001994800  140052002092720
+          140052001896848  140052001994864  140052001667312
+         
+         [:, :, 3] =
+          140052001667344  140052001667440  140052001667536
+          140052001667376  140052001667472  140052001667568
+          140052001667408  140052001667504  140052001886192
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{要素を抜き出す}\label{ux8981ux7d20ux3092ux629cux304dux51faux3059}
+
+配列の要素をある区間抜き出すには range を使います。range とは for
+文のところでも使っていた 1:10 などです。
+
+range の書き方は
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{start:step:stop}
+\end{Highlighting}
+\end{Shaded}
+
+の様に書きます。step を省略すると 1 刻みになります。
+
+この range を使って
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = [}\FloatTok{1}\NormalTok{, }\FloatTok{2}\NormalTok{, }\FloatTok{3}\NormalTok{, }\FloatTok{4}\NormalTok{, }\FloatTok{5}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+から奇数番目の要素だけを抜き出す場合には以下のようにします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]} \PY{c}{\PYZsh{} 1 〜 5 までの数を2刻み}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 3-element Array\{Int64,1\}:
+          1
+          3
+          5
+\end{Verbatim}
+        
+    添字に : を使うと全要素という意味になります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 5-element Array\{Int64,1\}:
+          1
+          2
+          3
+          4
+          5
+\end{Verbatim}
+        
+    end を使うと要素の最後までを表すことが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{k}{end}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 3-element Array\{Int64,1\}:
+          1
+          3
+          5
+\end{Verbatim}
+        
+    末端 -1 の要素までなどとする場合は end -1 とすれば大丈夫です。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{k}{end}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 2-element Array\{Int64,1\}:
+          1
+          3
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    この書き方は行列に関しても同じです。
+
+3 x 3 行列から1列目を抜き出す
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{l+m+mi}{2} \PY{l+m+mi}{3}
+             \PY{l+m+mi}{4} \PY{l+m+mi}{5} \PY{l+m+mi}{6}
+             \PY{l+m+mi}{7} \PY{l+m+mi}{8} \PY{l+m+mi}{9}\PY{p}{]}
+         \PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 3-element Array\{Int64,1\}:
+          1
+          4
+          7
+\end{Verbatim}
+        
+    3 x 3 行列から1行目を抜き出す
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 3-element Array\{Int64,1\}:
+          1
+          2
+          3
+\end{Verbatim}
+        
+    3 x 3 行列から 2 x 2 行列を抜き出す
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 2×2 Array\{Int64,2\}:
+          1  2
+          4  5
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    要素の指定には true, false
+も使うことが出来ます。抜き出す必要のあるところを true
+、抜き出す必要のないところを false にした配列を添え字として使うと、true
+に対応した要素だけを抜き出すことが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{x} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{)} \PY{c}{\PYZsh{} collect は range を配列に変換する}
+         \PY{n}{truth} \PY{o}{=} \PY{p}{[}\PY{n}{true}\PY{p}{,} \PY{n}{false}\PY{p}{,} \PY{n}{true}\PY{p}{,} \PY{n}{true}\PY{p}{,} \PY{n}{false}\PY{p}{]}
+         \PY{n}{x}\PY{p}{[}\PY{n}{truth}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 3-element Array\{Int64,1\}:
+          1
+          3
+          4
+\end{Verbatim}
+        
+    多次元配列に関しても同様にできます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{l+m+mi}{2}
+             \PY{l+m+mi}{3} \PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{truth} \PY{o}{=} \PY{p}{[}\PY{n}{true} \PY{n}{false}
+                 \PY{n}{false} \PY{n}{true}\PY{p}{]}
+         \PY{n}{x}\PY{p}{[}\PY{n}{truth}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 2-element Array\{Int64,1\}:
+          1
+          4
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{値の更新}\label{ux5024ux306eux66f4ux65b0}
+
+上記の要素を抜き出し方を覚えると、配列の要素を一度に更新することが出来ます。例として配列の奇数番目の要素を全て
+100 にするには以下のようにします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{x} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{k}{end}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{x}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} 5-element Array\{Int64,1\}:
+          100
+            2
+          100
+            4
+          100
+\end{Verbatim}
+        
+    奇数番目の数だけ 10 倍にするには次のようになります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{x} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{k}{end}\PY{p}{]} \PY{o}{*}\PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{x}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} 5-element Array\{Int64,1\}:
+          10
+           2
+          30
+           4
+          50
+\end{Verbatim}
+        
+    要素を抜き出して出来た配列と同じサイズの配列を代入すると対応する要素を更新することが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{x} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{k}{end}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{]}
+         \PY{n}{x}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 5-element Array\{Int64,1\}:
+          100
+            2
+          200
+            4
+          300
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{配列演算}\label{ux914dux5217ux6f14ux7b97}
+
+配列演算ではある2つの配列の対応する要素ごとに計算が行われます。配列演算をするにはいままで使ってきた演算子にドットをつけるだけです。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{;}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+    \(\begin{bmatrix}a_1 \\a_2 \end{bmatrix} .+ \begin{bmatrix}b_1 \\b_2 \end{bmatrix} = \begin{bmatrix}a_1 + b_1 \\a_2 + b_2 \end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{x} \PY{o}{.}\PY{o}{+} \PY{n}{y} \PY{c}{\PYZsh{} 加算と減算ではドットはつけてもつけなくてもどちらでも構いません。}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 3-element Array\{Int64,1\}:
+          5
+          7
+          9
+\end{Verbatim}
+        
+    \(\begin{bmatrix}a_1 \\a_2 \end{bmatrix} .- \begin{bmatrix}b_1 \\b_2 \end{bmatrix} = \begin{bmatrix}a_1 - b_1 \\a_2 - b_2 \end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{x} \PY{o}{.}\PY{o}{\PYZhy{}} \PY{n}{y}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 3-element Array\{Int64,1\}:
+          -3
+          -3
+          -3
+\end{Verbatim}
+        
+    \(\begin{bmatrix}a_1 \\a_2 \end{bmatrix} .* \begin{bmatrix}b_1 \\b_2 \end{bmatrix} = \begin{bmatrix}a_1 * b_1 \\a_2 * b_2 \end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{x} \PY{o}{.}\PY{o}{*} \PY{n}{y}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 3-element Array\{Int64,1\}:
+           4
+          10
+          18
+\end{Verbatim}
+        
+    \(\begin{bmatrix}a_1 \\a_2 \end{bmatrix} ./ \begin{bmatrix}b_1 \\b_2 \end{bmatrix} = \begin{bmatrix}a_1 / b_1 \\a_2 / b_2 \end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{x} \PY{o}{.}\PY{o}{/} \PY{n}{y}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 3-element Array\{Float64,1\}:
+          0.25
+          0.4 
+          0.5 
+\end{Verbatim}
+        
+    \(
+    \begin{bmatrix}a_1 \\a_2 \end{bmatrix} . \text{\textasciicircum}  n = \begin{bmatrix}a_1^n \\a_2^n \end{bmatrix}
+    \)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{x}\PY{o}{.}\PY{o}{\PYZca{}}\PY{l+m+mi}{2} \PY{c}{\PYZsh{} x の各要素を2乗}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} 3-element Array\{Int64,1\}:
+          1
+          4
+          9
+\end{Verbatim}
+        
+    大きさが違いものどうしでは配列演算は出来ません。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        DimensionMismatch("dimensions must match")
+
+        
+
+         in \_elementwise(::Base.\#+, ::Type\{Int64\}, ::Array\{Int64,1\}, ::Array\{Int64,1\}) at ./arraymath.jl:71
+
+         in +(::Array\{Int64,1\}, ::Array\{Int64,1\}) at ./arraymath.jl:63
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    しかし、定数を加減乗除することは出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} 3-element Array\{Int64,1\}:
+          2
+          3
+          4
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} 3-element Array\{Int64,1\}:
+          0
+          1
+          2
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{x} \PY{o}{*} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} 3-element Array\{Int64,1\}:
+          10
+          20
+          30
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{x} \PY{o}{/} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 3-element Array\{Float64,1\}:
+          0.1
+          0.2
+          0.3
+\end{Verbatim}
+        
+    定数 / 配列
+のときはドットをつけないとエラーが出ます。ドットをつけ忘れないように気をつけましょう。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{l+m+mi}{10} \PY{o}{/} \PY{n}{x} \PY{c}{\PYZsh{} エラーが出る}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        MethodError: no method matching /(::Int64, ::Array\{Int64,1\})
+    Closest candidates are:
+      /(::Integer, ::Integer) at int.jl:35
+      /(::Real, ::Complex\{T<:Real\}) at complex.jl:182
+      /(::Union\{Int16,Int32,Int64,Int8\}, ::BigFloat) at mpfr.jl:272
+      {\ldots}
+
+        
+
+         in execute\_request(::ZMQ.Socket, ::IJulia.Msg) at /home/tk/.julia/v0.5/IJulia/src/execute\_request.jl:157
+
+         in eventloop(::ZMQ.Socket) at /home/tk/.julia/v0.5/IJulia/src/eventloop.jl:8
+
+         in (::IJulia.\#\#13\#19)() at ./task.jl:360
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{l+m+mi}{10} \PY{o}{.}\PY{o}{/} \PY{n}{x}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} 3-element Array\{Float64,1\}:
+          10.0    
+           5.0    
+           3.33333
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    このドット " . " を使った演算は四則演算だけに限りません。関数に関しても
+`\texttt{julia\ \ \ \ \ 関数名.(collection)\ \#\ collection:\ 配列や\ Tuple\ など}
+と関数とカッコの間にドットを入れることで collection
+の各要素に関数を作用させる意味になります。得られる結果としては map
+関数を使った時と同じです。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{x} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{n}{π}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)} \PY{c}{\PYZsh{} linspace(a,b,n):  a:(b\PYZhy{}a)/n:b となる range。n を指定しない場合は 50 分割になる。}
+         \PY{n}{y} \PY{o}{=} \PY{n}{sin}\PY{o}{.}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 100-element Array\{Float64,1\}:
+           0.0        
+           0.0634239  
+           0.126592   
+           0.189251   
+           0.251148   
+           0.312033   
+           0.371662   
+           0.429795   
+           0.486197   
+           0.540641   
+           0.592908   
+           0.642788   
+           0.690079   
+           ⋮          
+          -0.642788   
+          -0.592908   
+          -0.540641   
+          -0.486197   
+          -0.429795   
+          -0.371662   
+          -0.312033   
+          -0.251148   
+          -0.189251   
+          -0.126592   
+          -0.0634239  
+           6.43249e-16
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{map}\PY{p}{(}\PY{n}{sin}\PY{p}{,} \PY{n}{x}\PY{p}{)} \PY{c}{\PYZsh{} map(func, collection): collection の各要素に func を作用させる}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} 100-element Array\{Float64,1\}:
+           0.0        
+           0.0634239  
+           0.126592   
+           0.189251   
+           0.251148   
+           0.312033   
+           0.371662   
+           0.429795   
+           0.486197   
+           0.540641   
+           0.592908   
+           0.642788   
+           0.690079   
+           ⋮          
+          -0.642788   
+          -0.592908   
+          -0.540641   
+          -0.486197   
+          -0.429795   
+          -0.371662   
+          -0.312033   
+          -0.251148   
+          -0.189251   
+          -0.126592   
+          -0.0634239  
+           6.43249e-16
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{要素の比較}\label{ux8981ux7d20ux306eux6bd4ux8f03}
+
+配列の要素同士を比較する場合もドットを使って .\textless{}
+などとします。返り値として true, false が入った配列が返ってきます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{x} \PY{o}{.}\PY{o}{\PYZlt{}=} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 3-element BitArray\{1\}:
+           true
+           true
+          false
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{x} \PY{o}{.}\PY{o}{==} \PY{n}{y}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} 3-element BitArray\{1\}:
+           true
+          false
+           true
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{x} \PY{o}{.}\PY{o}{\PYZlt{}} \PY{n}{y}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 3-element BitArray\{1\}:
+          false
+           true
+          false
+\end{Verbatim}
+        
+    返り値のtrue, false
+が入った配列を元の配列の添字として使うことで、ある条件を満たす要素を抜き出すことが出来ます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c}{\PYZsh{} 1 〜 10 が入った配列から 5 未満の数を抜き出す。}
+         \PY{n}{x} \PY{o}{=} \PY{n}{collect}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{x}\PY{p}{[}\PY{n}{x} \PY{o}{.}\PY{o}{\PYZlt{}} \PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 4-element Array\{Int64,1\}:
+          1
+          2
+          3
+          4
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = [}\FloatTok{67}\NormalTok{,}\FloatTok{57}\NormalTok{,}\FloatTok{69}\NormalTok{,}\FloatTok{64}\NormalTok{,}\FloatTok{54}\NormalTok{,}\FloatTok{13}\NormalTok{,}\FloatTok{78}\NormalTok{,}\FloatTok{26}\NormalTok{,}\FloatTok{29}\NormalTok{,}\FloatTok{37}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+という配列の中から奇数を抜き出すには
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x[x .% }\FloatTok{2} \NormalTok{.!= }\FloatTok{0}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+と書くことも出来ますが、引数が奇数か否かを判定する関数 isodd
+を使うことで次のようにも書けます。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{67}\PY{p}{,}\PY{l+m+mi}{57}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{54}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{78}\PY{p}{,}\PY{l+m+mi}{26}\PY{p}{,}\PY{l+m+mi}{29}\PY{p}{,}\PY{l+m+mi}{37}\PY{p}{]}
+         \PY{n}{x}\PY{p}{[}\PY{n}{isodd}\PY{o}{.}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} 6-element Array\{Int64,1\}:
+          67
+          57
+          69
+          13
+          29
+          37
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    次のように1列目に学生の名前、2,
+3列目に試験の点数が入った配列を考えます。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score = [}
+    \StringTok{"九州太郎"} \FloatTok{60} \FloatTok{88}
+    \StringTok{"九州花子"} \FloatTok{70} \FloatTok{43}
+    \StringTok{"博多勉"} \FloatTok{90} \FloatTok{37}
+\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+この配列から 九州花子 の行を抜き出すには以下のようになります。
+
+score{[}:,1{]} .== ``九州花子'' で抜き出す行を指定し、:
+で列全体を抜き出しています。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{score} \PY{o}{=} \PY{p}{[}
+             \PY{l+s}{\PYZdq{}}\PY{l+s}{九州太郎}\PY{l+s}{\PYZdq{}} \PY{l+m+mi}{60} \PY{l+m+mi}{88}
+             \PY{l+s}{\PYZdq{}}\PY{l+s}{九州花子}\PY{l+s}{\PYZdq{}} \PY{l+m+mi}{70} \PY{l+m+mi}{43}
+             \PY{l+s}{\PYZdq{}}\PY{l+s}{博多勉}\PY{l+s}{\PYZdq{}} \PY{l+m+mi}{90} \PY{l+m+mi}{37}
+         \PY{p}{]}
+         \PY{n}{score}\PY{p}{[}\PY{n}{score}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{.}\PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{九州花子}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} 1×3 Array\{Any,2\}:
+          "九州花子"  70  43
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \subsection{配列を扱う上での注意}\label{ux914dux5217ux3092ux6271ux3046ux4e0aux3067ux306eux6ce8ux610f}
+
+配列をコピーする際には次のように注意が必要です。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{x}
+         \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}\PY{p}{,} \PY{n}{y}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(x,y) = ([10,2,3],[10,2,3])
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} ([10,2,3],[10,2,3])
+\end{Verbatim}
+        
+    上の例では 1. 変数 x に配列 {[}1, 2, 3{]} を代入する 1. y という変数に x
+を代入 1. 配列 x の第1要素を更新
+
+という流れになっていますが、x の値だけを更新したはずなのに、何故か y
+の値までの変わってしまっています。
+
+y に影響を与えないようにするには、y へ x をコピーするときに
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{y = x[:]}
+\end{Highlighting}
+\end{Shaded}
+
+とするか、または
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{y = copy(x)}
+    
+    \NormalTok{or}
+    
+    \NormalTok{y = deepcopy(x)}
+\end{Highlighting}
+\end{Shaded}
+
+とします。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{copy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}\PY{p}{,} \PY{n}{y}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(x,y) = ([10,2,3],[1,2,3])
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} ([10,2,3],[1,2,3])
+\end{Verbatim}
+        
+    copy と deepcopy
+は引数の配列の中身が数値だけの時はどちらも動作としては変わりませんが、配列の中に配列を含んでいるような場合では動作が異なります。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{copy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}\PY{p}{,} \PY{n}{y}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(x,y) = (Any[[100,2,3],4,5],Any[[100,2,3],4,5])
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} (Any[[100,2,3],4,5],Any[[100,2,3],4,5])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{p}{@}\PY{n}{show} \PY{n}{x}\PY{p}{,} \PY{n}{y}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(x,y) = (Any[[1,2,3],4,5],Any[[100,2,3],4,5])
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} (Any[[1,2,3],4,5],Any[[100,2,3],4,5])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+    \section{練習問題}\label{ux7df4ux7fd2ux554fux984c}
+
+    \subsection{1.}\label{section}
+
+ビンゴカードを作成せよ。ここで各列の数字は以下の規則に従う 1列目: 1〜15
+2列目: 16〜30 3列目: 31〜45 4列目: 46〜60 5列目: 61〜75
+
+中央は 0 をする。
+
+ヒント: shuffle 関数
+
+出力例
+
+\begin{verbatim}
+  7  20  34  59  64 
+  4  23  43  60  74 
+  2  25   0  46  62 
+  1  22  39  49  70 
+ 13  30  31  50  75 
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{2.}\label{section}
+
+配列
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = collect(}\FloatTok{1}\NormalTok{:}\FloatTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+から3の倍数番目の要素を抜き出せ。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{3.}\label{section}
+
+配列
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{x = collect(}\DataTypeTok{Float64}\NormalTok{, }\FloatTok{1}\NormalTok{:}\FloatTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+の奇数番目の項を 100 倍に、偶数番目の項を 1/100 倍に更新せよ。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \subsection{4.}\label{section}
+
+配列
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \NormalTok{srand(}\FloatTok{1}\NormalTok{) }\CommentTok{# 乱数のシード}
+    \NormalTok{x = rand(}\FloatTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+から値が 0.5 未満の項を抜き出せ。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \protect\hyperlink{ux76eeux6b21}{目次に戻る}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
